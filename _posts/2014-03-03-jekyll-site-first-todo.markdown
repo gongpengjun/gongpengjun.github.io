@@ -1,0 +1,11 @@
+---
+layout: default
+title: Jekyll站点最简配置事项
+date:   2014-03-03 08:00:00
+categories: jekyll
+---
+
+使用Jekyll创建一个站点后，最少需要修改下面几个配置：
+1. 站点名称：
+2. 作者名称：
+3. 作者邮箱：
