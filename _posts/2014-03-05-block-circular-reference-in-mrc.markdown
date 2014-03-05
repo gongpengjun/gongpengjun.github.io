@@ -66,10 +66,6 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 
 将self赋给声明为\_\_block的自动变量，让block使用(捕获)该\_\_block变量，这时，block不会增加self的引用应用计数，打破了循环引用，避免了内存泄露。
 
-*该方案的缺陷是：如果self被释放了，block代码访问到的wself会是野指针，会崩溃。*
-
-使用该方法，要确保block只被self引用，这样当self不存在时，block也就被释放了，没有机会执行，也就没有机会访问所谓的野指针而造成崩溃了。
-
 <code>
 {% highlight objc %}
 - (id)init {
@@ -80,3 +76,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 }
 {% endhighlight %}
 </code>
+
+**该方案的缺陷是：如果self被释放了，block代码访问到的wself会是野指针，会崩溃。**
+
+使用该方法，要确保block只被self引用，这样当self不存在时，block也就被释放了，没有机会执行，也就没有机会访问所谓的野指针而造成崩溃了。
