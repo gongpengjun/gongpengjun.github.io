@@ -70,7 +70,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 {% highlight objc %}
 - (id)init {
     self = [super init];
-    id __weak wself = self;
+    __weak typeof(self) wself = self;
     blk_ = ^{NSLog(@"self = %@", wself);}; 
     return self;
 }
