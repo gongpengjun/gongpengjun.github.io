@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Block引起的循环引用案例（一）成员变量为Block类型[ARC]
+title: Block引起的循环引用案例剖析（一）成员变量为Block类型[ARC]
 date:   2014-03-04 10:00:00
 categories: Objective-C
 ---
 
-# Block引起的循环引用案例（一）成员变量为Block类型[ARC]
+# Block引起的循环引用案例剖析（一）成员变量为Block类型[ARC]
 
-在iOS/Mac开发中，使用ARC（自动引用计数）的情况下，类的某个成员是block类型，容易引起循环引用，造成内存泄露。
+在iOS/Mac开发中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用ARC（自动引用计数）的情况下的代码片段和解决方案。
 
 <code></code>
 - - -

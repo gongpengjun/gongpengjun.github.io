@@ -1,4 +1,6 @@
 name: iOS开发实战
 markdown: redcarpet
 pygments: true
+timezone: Asia/Beijing
+encoding: utf-8
 exclude: [2014-03-03-jekyll-on-github-intro.markdown,2014-03-03-jekyll-site-first-todo.markdown]
