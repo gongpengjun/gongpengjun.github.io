@@ -17,7 +17,7 @@ categories: Objective-C
 
 <code>
 {% highlight objc %}
-// ARC-Disabled (-fno-objc-arc) ==> MRC
+// MRC or ARC-Disabled (-fno-objc-arc)
 typedef void (^blk_t)(void);
 @interface MyObject : NSObject {
     blk_t blk_;
