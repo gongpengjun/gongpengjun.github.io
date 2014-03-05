@@ -113,4 +113,4 @@ block内部的sself是临时变量，只会在block被执行的短暂时间段�
 ## 真实案例
 
 最后，举一个使用方案二的实例，AFNetworking的实现代码：
-[UIImageView+AFNetworking](https://github.com/AFNetworking/AFNetworking/blob/master/UIKit%2BAFNetworking/UIImageView%2BAFNetworking.m#L142)
+[UIImageView+AFNetworking](https://github.com/AFNetworking/AFNetworking/blob/master/UIKit%2BAFNetworking/UIImageView%2BAFNetworking.m#L142-L146)
