@@ -68,15 +68,29 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 
 <code>
 {% highlight objc %}
+// MRC or ARC-Disabled (-fno-objc-arc)
 - (id)init {
     self = [super init];
-    __block typeof(self) wself = self;
-    blk_ = ^{NSLog(@"self = %@", wself);}; 
+    __block typeof(self) unsafe_self = self;
+    blk_ = ^{NSLog(@"self = %@", unsafe_self);}; 
     return self;
 }
 {% endhighlight %}
 </code>
 
-**该方案的缺陷是：如果self被释放了，block代码访问到的wself会是野指针，会崩溃。**
+该方案等价于ARC下面的\_\_unsafe\_\_unretained，因为MRC下没有weak机制，只能如此了。
+
+<code>
+{% highlight objc %}
+// ARC-Enabled (-fobjc-arc)
+- (id)init {
+    self = [super init];
+    __unsafe_unretained typeof(self) unsafe_self = self;
+    blk_ = ^{NSLog(@"self = %@", unsafe_self);}; 
+    return self;
+}
+{% endhighlight %}
+
+**该方案的缺陷是：如果self被释放了，block代码访问到的unsafe_self会是野指针，会导致崩溃。**
 
 使用该方法，要确保block只被self引用，这样当self不存在时，block也就被释放了，没有机会执行，也就没有机会访问所谓的野指针而造成崩溃了。
