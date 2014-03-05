@@ -109,3 +109,8 @@ block内部的sself是临时变量，只会在block被执行的短暂时间段�
 * 在block被执行当中，临时变量block被建立，block通过sself短暂持有对self的强引用，self通过blk_持有对block的强引用，存在循环引用。
 * 在block被执行之后，临时变量sself被释放，不存在循环引用。
 
+<code></code>
+## 真实案例
+
+最后，举一个使用方案二的实例，AFNetworking的实现代码：
+[UIImageView+AFNetworking](https://github.com/AFNetworking/AFNetworking/blob/master/UIKit%2BAFNetworking/UIImageView%2BAFNetworking.m#L142)
