@@ -55,7 +55,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 
 <code>
 
-1. 在-init中，当那个block literal赋给blk_时，该block被从栈上复制到堆上，blk_指向堆上的新复制出来的block，self是该堆上block的所有者（owner）。
+1. 在-init中，当那个block literal复制(copy)后，该block被从栈上复制到堆上，blk_指向堆上的新复制出来的block，self是该堆上block的所有者（owner）。
 1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，堆上block持有self的引用。
 1. 当-init方法执行完毕，栈上的block literal被自动释放。
 1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
