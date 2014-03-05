@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block引起的循环引用案例（一）成员变量为Block类型[ARC]
-date:   2014-03-03 10:00:00
+date:   2014-03-04 10:00:00
 categories: Objective-C
 ---
 
