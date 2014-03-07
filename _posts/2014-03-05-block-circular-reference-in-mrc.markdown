@@ -44,7 +44,7 @@ int main() {
 
 # 错误现象
 
-<code>-[MyObject dealloc]永远不会被调用到。</code>
+*-[MyObject dealloc]永远不会被调用到。*
 
 <p></p>
 
