@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 用Jekyll建站最简配置
 date:   2014-03-03 08:00:00
 categories: jekyll
