@@ -8,7 +8,6 @@ categories: Objective-C
 在iOS/Mac开发中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用MRC（手动引用计数）的情况下的代码片段和解决方案。
 
 - - -
-<p></p>
 
 # 错误代码
 
@@ -40,13 +39,11 @@ int main() {
 }
 {% endhighlight %}
 
-<p></p>
 
 # 错误现象
 
 *-[MyObject dealloc]永远不会被调用到。*
 
-<p></p>
 
 # 错误原理
 
@@ -57,7 +54,6 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 1. 当-init方法执行完毕，栈上的block literal被自动释放。
 1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
 
-<p></p>
 
 # 解决方案
 

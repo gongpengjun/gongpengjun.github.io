@@ -8,7 +8,6 @@ categories: Objective-C
 在iOS/Mac开发中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用ARC（自动引用计数）的情况下的代码片段和解决方案。
 
 - - -
-<p></p>
 
 # 错误代码
 
@@ -37,13 +36,11 @@ int main() {
 }
 {% endhighlight %}
 
-<p></p>
 
 # 错误现象
 
 *-[MyObject dealloc]永远不会被调用到。*
 
-<p></p>
 
 # 错误原理
 
@@ -55,7 +52,6 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，block持有self的引用。
 1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
 
-<p></p>
 
 # 解决方案一：简单方案
 
@@ -71,7 +67,6 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 }
 {% endhighlight %}
 
-<p></p>
 
 # 解决方案二：完善方案
 
@@ -103,7 +98,6 @@ block内部的sself是临时变量，只会在block被执行的短暂时间段�
 * 在block被执行当中，临时变量block被建立，block通过sself短暂持有对self的强引用，self通过blk_持有对block的强引用，存在循环引用。
 * 在block被执行之后，临时变量sself被释放，不存在循环引用。
 
-<p></p>
 
 # 真实案例
 
