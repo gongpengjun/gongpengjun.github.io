@@ -138,7 +138,8 @@ a:visited { color: #a0a; }
 }
 
 .post ul, .post ol {
-  margin-left: 1.35em;
+  margin-left: 1em;
+  list-style-position: inside;
 }
 
 .post code {
