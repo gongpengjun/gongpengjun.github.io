@@ -11,7 +11,6 @@ categories: Objective-C
 
 # 错误代码
 
-```
 {% highlight objc %}
 // ARC-Enabled (-fobjc-arc)
 typedef void (^blk_t)(void);
@@ -36,7 +35,7 @@ int main() {
     return 0;
 }
 {% endhighlight %}
-```
+
 
 # 错误现象
 
@@ -59,7 +58,6 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 * 将self赋给声明为\_\_weak的自动变量，让block使用(捕获)该\_\_weak变量，这样block不再持有self的引用，打破了循环引用，避免了内存泄露。
 * 因为block捕获的wself是一个\_\_weak类型，当self被释放时，wself会自动被置为nil，这样block代码访问wself时，不会引用到野指针。
 
-```
 {% highlight objc %}
 - (id)init {
     self = [super init];
@@ -68,7 +66,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
     return self;
 }
 {% endhighlight %}
-```
+
 
 # 解决方案二：完善方案
 
@@ -78,7 +76,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 * 如果block代码希望在执行期间，self总是有效的对象，而不是nil，上面的方案也无法保证。
 
 因此，可以在block代码开始的时候，将wself赋值给一个\_\_strong引用的临时变量来解决上面的两个问题。
-```
+
 {% highlight objc %}
 - (id)init {
     self = [super init];
@@ -92,7 +90,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
     return self;
 }
 {% endhighlight %}
-```
+
 block内部的sself是临时变量，只会在block被执行的短暂时间段持有对self的引用，在block代码执行完成之后（出了sself的作用域），该sself会自动被释放。
 这样虽然在block被执行的短暂时间段存在循环引用，但是该循环引用是动态的、短暂的、必定被打破的，所以是安全的，不会引起内存泄露。
 
