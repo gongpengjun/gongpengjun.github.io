@@ -11,7 +11,7 @@ categories: Objective-C
 
 # 错误代码
 
-{% highlight objc %}
+```objc
 // MRC or ARC-Disabled (-fno-objc-arc)
 typedef void (^blk_t)(void);
 @interface MyObject : NSObject {
@@ -37,7 +37,7 @@ int main() {
     [obj release];
     return 0;
 }
-{% endhighlight %}
+```
 
 
 # 错误现象
@@ -59,7 +59,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 
 将self赋给声明为\_\_block的自动变量，让block使用(捕获)该\_\_block变量，这时，block不会增加self的引用应用计数，打破了循环引用，避免了内存泄露。
 
-{% highlight objc %}
+```objc
 // MRC or ARC-Disabled (-fno-objc-arc)
 - (id)init {
     self = [super init];
@@ -67,11 +67,11 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
     blk_ = ^{NSLog(@"self = %@", unsafe_self);}; 
     return self;
 }
-{% endhighlight %}
+```
 
 该方案等价于ARC下面的\_\_unsafe\_\_unretained，因为MRC下没有weak机制，只能如此了。
 
-{% highlight objc %}
+```objc
 // ARC-Enabled (-fobjc-arc)
 - (id)init {
     self = [super init];
@@ -79,7 +79,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
     blk_ = ^{NSLog(@"self = %@", unsafe_self);}; 
     return self;
 }
-{% endhighlight %}
+```
 
 **该方案的缺陷是：如果self被释放了，block代码访问到的unsafe_self会是野指针，会导致崩溃。**
 
