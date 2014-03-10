@@ -58,12 +58,21 @@ a:visited { color: #a0a; }
 /*****************************************************************************/
 
 .site {
-  font-size: 115%;
+  font-size: 100%;
   text-align: justify;
-  width: 42em;
-  margin: 3em auto 2em;
+  width: 85%;
+  margin: 1em auto 1em auto;
   line-height: 1.5em;
-  padding: 2em
+  padding: 0;
+}
+
+@media only screen and (min-width: 481px) {
+  .site {
+    font-size: 115%;
+    margin: 3em auto 2em;
+    width: 42em;
+    padding: 2em;
+  }
 }
 
 .header a {
@@ -72,6 +81,7 @@ a:visited { color: #a0a; }
 }
 
 .title {
+  font-size: 115%;
   display: inline-block;
   margin-bottom: 2em;
 }
