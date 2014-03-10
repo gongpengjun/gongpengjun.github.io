@@ -12,17 +12,13 @@ Github Pages是一个运行Jekyll的静态网站Hosting服务，和GitHub无缝�
 1. 编写Markdown格式的文件，上传到GitHub特定代码库中
 2. Github Pages 使用Jekyll将这些Markdown文件转换为HTML页面，提供给用户访问。
 
-<br />
-
 # 安装步骤
 
 ## 1. 创建Github Pages个人站点：参照官方步骤 <a href="http://pages.github.com" target="_blank">Github Pages</a>
-<br />
 
 ## 2. Checkout个人站点目录
 ```sh
 $ git clone https://github.com/gongpengjun/gongpengjun.github.io ~/gongpengjun.github.io
-{% endhighlight %}
 ```
 
 ## 3. 本地安装Jekyll：参照官方步骤 <a href="http://jekyllrb.com" target="_blank">Jekyll<a/>
