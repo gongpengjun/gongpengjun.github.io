@@ -49,10 +49,10 @@ int main() {
 
 self是持有堆上的block的引用，堆上block持有self的引用，循环引用，谁都无法释放，表现为dealloc无法被调用。
 
-1. 在-init中，当那个block literal复制(copy)后，该block被从栈上复制到堆上，blk_指向堆上的新复制出来的block，self是该堆上block的所有者（owner）。
-1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，堆上block持有self的引用。
-1. 当-init方法执行完毕，栈上的block literal被自动释放。
-1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
+1. 在-init中，当那个block literal执行copy方法后，该block被从栈上复制到堆上，blk\_指向堆上的新复制出来的block，self引用该堆上block。
+1. 在block literal被（从栈上）复制到堆上时，堆上block持有self的引用（self的引用计数增加）。
+1. 当-[MyObject init]方法执行完毕，栈上的block literal被自动释放。
+1. 因为self和block相互引用，谁都无法释放，导致内存泄露。
 
 
 # 解决方案

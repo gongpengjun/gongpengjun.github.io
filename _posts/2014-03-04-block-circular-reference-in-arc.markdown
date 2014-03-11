@@ -46,8 +46,8 @@ int main() {
 
 self强引用block，block强引用self，循环引用，谁都无法释放，表现为dealloc无法被调用。
 
-1. 在ARC环境下，成员变量blk_t blk_;等价于\_\_strong blk_t blk_;
-1. 在-init中，当那个block literal赋给blk_时，该block被从栈上复制到堆上，self持有block的引用。
+1. 在ARC环境下，成员变量blk\_t blk\_;等价于\_\_strong blk\_t blk\_;
+1. 在-[MyObject init]中，当那个block literal赋给blk\_时，该block被从栈上复制到堆上，self持有block的引用。
 1. 在ARC环境下，block代码内部直接引用self，也是\_\_strong引用。
 1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，block持有self的引用。
 1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
@@ -72,7 +72,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 
 上面的解决方案一存在两个问题：
 
-* 在多线程环境下，self在一个线程被释放，而blk_在另一个线程执行，有可能在wself要被置为但还未被置为nil的瞬间，blk_代码访问了wself的方法或成员变量而引起崩溃。
+* 在多线程环境下，self在一个线程被释放，而blk\_在另一个线程执行，有可能在wself要被置为但还未被置为nil的瞬间，blk\_代码访问了wself的方法或成员变量而引起崩溃。
 * 如果block代码希望在执行期间，self总是有效的对象，而不是nil，上面的方案也无法保证。
 
 因此，可以在block代码开始的时候，将wself赋值给一个\_\_strong引用的临时变量来解决上面的两个问题。
