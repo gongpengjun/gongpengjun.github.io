@@ -58,7 +58,7 @@ a:visited { color: #a0a; }
 /*****************************************************************************/
 
 .site {
-  font-size: 100%;
+  font-size: 115%;
   text-align: justify;
   width: 90%;
   margin: 1em auto 1em auto;
@@ -83,7 +83,7 @@ a:visited { color: #a0a; }
 .title {
   font-size: 115%;
   display: inline-block;
-  margin-bottom: 2em;
+  margin-bottom: 0.5em;
 }
 
 .title a {
