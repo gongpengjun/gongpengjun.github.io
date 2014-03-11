@@ -12,6 +12,12 @@
 
 html, body { height: 100%; }
 
+html {
+  /* prevent iOS from changing text size after orientation changes */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
 body {
   background-color: #FFF;
   font: 13.34px Helvetica, Arial, sans-serif;
