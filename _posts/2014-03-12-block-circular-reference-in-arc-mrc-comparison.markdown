@@ -26,7 +26,7 @@ categories: Objective-C
 
 ## 问题二：既然ARC下的\_\_weak关键字更好，那为什么在ARC下看到有时使用\_\_block呢？是为了避免循环引用吗？那ARC下的\_\_block关键字又是干什么用的呢？
 
-\_\_block关键字的本意是表示通过引用捕获，即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
+\_\_block关键字的本意是表示通过捕获变量的引用，即通过地址访问变量，这样就可以给该变量赋值。即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
 
 ```objc
 __block int x = 123; //  x lives in block storage
@@ -65,24 +65,26 @@ printXAndY(456); // prints: 579 456
 }
 ```
 
+**上面代码的含义是这样的：**
+
 1. 代码中变量operation被指定了\_\_block关键字:
 
     ```objc
     __block SDWebImageDownloaderOperation *operation; 
     ```
-1. 这是为了在'createCallback'这个block里可以对变量operation赋值:
+1. 这是为了在block('createCallback')里可以对变量operation赋值:
 
     ```objc
     operation = [SDWebImageDownloaderOperation.alloc
     ```
 
-1. 从而让block外面的代码可以访问在block里面生成的对象:
+1. 从而让block('createCallback')外面的代码可以访问在block里面生成的对象:
 
     ```objc
     return operation;
     ```
 
-如果不使用\_\_block关键字，那么'createCallback'这个block里就无法给变量operation赋值，``` return operation; ```就永远返回nil，其实，编译器会在编译时发现这个问题，并报告错误。
+如果不使用\_\_block关键字，那么block('createCallback')里就无法给变量operation赋值，运行时，``` return operation; ```就永远返回nil。其实，不用等到运行时，编译器在编译时就会发现这个问题，并报告错误。
 
 - - -
 
