@@ -26,7 +26,7 @@ categories: Objective-C
 
 ## 问题二：既然ARC下的\_\_weak关键字更好，那为什么在ARC下看到有时使用\_\_block呢？是为了避免循环引用吗？那ARC下的\_\_block关键字又是干什么用的呢？
 
-\_\_block关键字的本意是表示通过捕获变量的引用，即通过地址访问变量，这样就可以给该变量赋值。即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
+\_\_block关键字的本意是表示通过引用捕获变量，即通过引用(变量的地址)来访问变量，这样就可以给该变量赋值。即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
 
 ```objc
 __block int x = 123; //  x lives in block storage
