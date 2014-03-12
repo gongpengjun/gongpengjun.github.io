@@ -43,7 +43,7 @@ printXAndY(2); // prints: 3 2
 同样，对于id类型的变量，也可以指定\_\_block关键字，这样，也可以在block里面给这样的变量赋值，含义是让它指向新的对象（retain或者non-retain）。
 
 所以，在ARC下，\_\_block关键字不是为了解决循环引用的，而是为了解决让变量可以在block内部被赋值。比如我们在SDWebImage的库代码里可以看到如下的写法：
-<a href="https://github.com/rs/SDWebImage/blob/42f97369726f1ee282b40b63616e339adfcb2c8a/SDWebImage/SDWebImageDownloader.m#L108" target="_blank">SDWebImageDownloader.m (line:108)</a>
+<a href="https://github.com/rs/SDWebImage/blob/42f97369726f1ee282b40b63616e339adfcb2c8a/SDWebImage/SDWebImageDownloader.m#L108-L164" target="_blank">SDWebImageDownloader.m (line:108)</a>
 
 ```objc
 - (id<SDWebImageOperation>)downloadImageWithURL:...
