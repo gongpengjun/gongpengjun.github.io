@@ -1,0 +1,93 @@
+---
+layout: post
+title: Block引起的循环引用案例剖析（三）ARC下的__block关键字有什么作用？
+date:   2014-03-12 10:00:00
+categories: Objective-C
+---
+
+为了避免Block相关的循环引用，MRC下使用\_\_block关键字，ARC下使用\_\_Weak关键字，它们有什么区别？既然ARC下的\_\_weak关键字更好，那为什么在ARC下看到有时使用\_\_block呢？是为了避免循环引用吗？不是的话，那ARC下的\_\_block关键字又是干什么用的呢？下面我们就来一一回答这几个问题，并举一个真实的案例说明ARC下的\_\_weak和\_\_block两个关键字各自的妙用。
+
+- - -
+
+## 问题一：为避免循环引用，MRC下使用\_\_block关键字，ARC下使用\_\_Weak关键字，它们效果一样吗？有什么区别？
+
+
+参见本系列的前两篇文章
+
+* <a href="{{site->host:site->port}}/objective-c/2014/03/05/block-circular-reference-in-mrc.html" target="_blank">Block引起的循环引用案例剖析（一）ARC下的__weak关键字</a>
+* <a href="{{site->host:site->port}}/objective-c/2014/03/05/block-circular-reference-in-mrc.html" target="_blank">Block引起的循环引用案例剖析（二）MRC下的__block关键字</a>
+
+我们知道
+
+* 在ARC环境下，使用\_\_weak关键字，可以避免循环引用
+* 在MRC环境下，使用\_\_block关键字，可以避免循环引用
+
+在避免循环引用这一点上，两者效果相同，都可以避免block引用self而打破循环引用。但当被引用对象self释放时，两者的行为就不一样了：在MRC下，指定了\_\_block关键字的变量指向的地址不变，这时，如果访问该变量就会产生访问错误令程序崩溃；而在ARC下的\_\_weak关键字变量会自动被置为nil，这时，如果访问该变量，nil，像Objective-C一贯一样，不会有任何副作用。所以ARC下的\_\_weak可以让程序更安全更健壮。
+
+## 问题二：既然ARC下的\_\_weak关键字更好，那为什么在ARC下看到有时使用\_\_block呢？是为了避免循环引用吗？那ARC下的\_\_block关键字又是干什么用的呢？
+
+\_\_block关键字的本意是表示通过引用捕获，即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
+
+```objc
+__block int x = 123; //  x lives in block storage
+ 
+void (^printXAndY)(int) = ^(int y) {
+ 
+    x = x + y;
+    printf("%d %d\n", x, y);
+};
+printXAndY(456); // prints: 579 456
+// x is now 579
+```
+
+在该例子中，x被指定了\_\_block关键字，这样printXAndY里面的代码就可以将新的值赋给x：``` x = x + y; ```。
+
+同样，对于id类型的变量，也可以指定\_\_block关键字，这样，也可以在block里面给这样的变量赋值，含义是让它指向新的对象（retain或者non-retain）。
+
+所以，在ARC下，\_\_block关键字不是为了解决循环引用的，而是为了解决让变量可以在block内部被赋值。比如我们在SDWebImage的库代码里可以看到如下的写法：
+<a href="https://github.com/rs/SDWebImage/blob/42f97369726f1ee282b40b63616e339adfcb2c8a/SDWebImage/SDWebImageDownloader.m#L108" target="_blank">SDWebImageDownloader.m (line:108)</a>
+
+```objc
+- (id<SDWebImageOperation>)downloadImageWithURL:(NSURL *)url ...
+{
+    __block SDWebImageDownloaderOperation *operation;
+    __weak SDWebImageDownloader *wself = self;
+    
+    [self addProgressCallback:progressBlock andCompletedBlock:completedBlock forURL:url createCallback:^
+     {
+         // ...
+         operation = [SDWebImageDownloaderOperation.alloc
+                      // ...
+                      ];
+     }];
+    
+    return operation;
+}
+```
+
+1. 代码中变量operation被指定了\_\_block关键字:
+
+    ```objc
+    __block SDWebImageDownloaderOperation *operation; 
+    ```
+1. 这是为了在'createCallback'这个block里可以对变量operation赋值:
+
+    ```objc
+    operation = [SDWebImageDownloaderOperation.alloc
+    ```
+
+1. 从而让block外面的代码可以访问在block里面生成的对象:
+
+    ```objc
+    return operation;
+    ```
+
+如果不使用\_\_block关键字，那么'createCallback'这个block里就无法给变量operation赋值，``` return operation; ```就永远返回nil，其实，编译器会在编译时发现这个问题，并报告错误。
+
+- - -
+
+## 结论
+
+1. 在ARC下，\_\_weak关键字是为了解决循环引用。
+1. 在ARC下，\_\_block关键字是为了让block里可以对变量赋值，从而将block里面计算的值或生成的对象传递出去。
+

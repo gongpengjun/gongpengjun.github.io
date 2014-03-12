@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Block引起的循环引用案例剖析（二）成员变量为Block类型[MRC]
+title: Block引起的循环引用案例剖析（二）MRC下的__block关键字
 date:   2014-03-05 10:00:00
 categories: Objective-C
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Block引起的循环引用案例剖析（一）成员变量为Block类型[ARC]
+title: Block引起的循环引用案例剖析（一）ARC下的__weak关键字
 date:   2014-03-04 10:00:00
 categories: Objective-C
 ---
