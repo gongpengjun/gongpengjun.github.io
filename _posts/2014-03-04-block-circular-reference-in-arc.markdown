@@ -5,7 +5,7 @@ date:   2014-03-04 10:00:00
 categories: Objective-C
 ---
 
-在Objective-C中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用ARC（自动引用计数）的情况下的代码片段和解决方案。
+在Objective-C中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用自动引用计数（ARC）情况下的代码片段和解决方案。
 
 - - -
 
@@ -44,13 +44,13 @@ int main() {
 
 # 错误原理
 
-self强引用block，block强引用self，循环引用，谁都无法释放，表现为dealloc无法被调用。
+self强引用block，block强引用self，循环引用，谁都无法释放，表现为self的dealloc无法被调用。
 
-1. 在ARC环境下，成员变量blk\_t blk\_;等价于\_\_strong blk\_t blk\_;
-1. 在-[MyObject init]中，当那个block literal赋给blk\_时，该block被从栈上复制到堆上，self持有block的引用。
+1. 在ARC环境下，成员变量声明blk\_t blk\_;等价于\_\_strong blk\_t blk\_;
+1. 在-[MyObject init]中，当那个block literal赋给blk\_时，该block被从栈上复制到堆上，self持有堆上block的引用。
 1. 在ARC环境下，block代码内部直接引用self，也是\_\_strong引用。
-1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，block持有self的引用。
-1. 因为self和block相互强引用，谁都无法释放，导致内存泄露。
+1. 在那个block literal被从栈上复制到堆上时，self的引用计数增加，堆上block持有self的引用。
+1. 因为self和堆上的block相互强引用，谁都无法释放，导致内存泄露。
 
 
 # 解决方案一：简单方案
