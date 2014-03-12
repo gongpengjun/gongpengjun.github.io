@@ -29,15 +29,15 @@ categories: Objective-C
 \_\_block关键字的本意是表示通过引用捕获变量，即通过引用(变量的地址)来访问变量，这样就可以给该变量赋值。即在block里面可以给指定了\_\_block关键字的变量赋值，它是为了让block将一些信息传递到block之外。比如下面的例子：
 
 ```objc
-__block int x = 123; //  x lives in block storage
+__block int x = 1; //  x lives in block storage
  
 void (^printXAndY)(int) = ^(int y) {
  
     x = x + y;
     printf("%d %d\n", x, y);
 };
-printXAndY(456); // prints: 579 456
-// x is now 579
+printXAndY(2); // prints: 3 2
+// x is now 3
 ```
 
 在该例子中，x被指定了\_\_block关键字，这样printXAndY里面的代码就可以将新的值赋给x：``` x = x + y; ```。
