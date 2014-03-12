@@ -30,9 +30,7 @@ categories: Objective-C
 
 ```objc
 __block int x = 1; //  x lives in block storage
- 
 void (^printXAndY)(int) = ^(int y) {
- 
     x = x + y;
     printf("%d %d\n", x, y);
 };
