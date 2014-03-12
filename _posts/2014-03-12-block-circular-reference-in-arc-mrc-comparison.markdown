@@ -46,12 +46,12 @@ printXAndY(2); // prints: 3 2
 <a href="https://github.com/rs/SDWebImage/blob/42f97369726f1ee282b40b63616e339adfcb2c8a/SDWebImage/SDWebImageDownloader.m#L108" target="_blank">SDWebImageDownloader.m (line:108)</a>
 
 ```objc
-- (id<SDWebImageOperation>)downloadImageWithURL:(NSURL *)url ...
+- (id<SDWebImageOperation>)downloadImageWithURL:...
 {
     __block SDWebImageDownloaderOperation *operation;
     __weak SDWebImageDownloader *wself = self;
     
-    [self addProgressCallback:progressBlock andCompletedBlock:completedBlock forURL:url createCallback:^
+    [self addProgressCallback: ... createCallback:^
      {
          // ...
          operation = [SDWebImageDownloaderOperation.alloc
