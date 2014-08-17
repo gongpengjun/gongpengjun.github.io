@@ -38,7 +38,7 @@ printXAndY(2); // prints: 3 2
 // x is now 3
 ```
 
-在该例子中，x被指定了\_\_block关键字，这样printXAndY里面的代码就可以将新的值赋给x：``` x = x + y; ```。
+在该例子中，x被指定了\_\_block关键字，这样printXAndY这个block里面的代码就可以将新的值赋给block外部的变量x：``` x = x + y; ```。
 
 同样，对于id类型的变量，也可以指定\_\_block关键字，这样，也可以在block里面给这样的变量赋值，含义是让它指向新的对象（retain或者non-retain）。
 
@@ -70,19 +70,19 @@ printXAndY(2); // prints: 3 2
     ```objc
     __block SDWebImageDownloaderOperation *operation; 
     ```
-1. 这是为了在block('createCallback')里可以对变量operation赋值:
+1. 这是为了在block('createCallback')里可以对外部变量operation赋值:
 
     ```objc
     operation = [SDWebImageDownloaderOperation.alloc
     ```
 
-1. 从而让block('createCallback')外面的代码可以访问在block里面生成的对象:
+1. 从而让block('createCallback')外部的代码可以引用在block里面生成的对象:
 
     ```objc
     return operation;
     ```
 
-如果不使用\_\_block关键字，那么block('createCallback')里就无法给变量operation赋值，运行时，``` return operation; ```就永远返回nil。其实，不用等到运行时，编译器在编译时就会发现这个问题，并报告错误。
+如果不使用\_\_block关键字，那么block('createCallback')里就无法给外部变量operation赋值，运行时，``` return operation; ```就永远返回nil。其实，不用等到运行时，编译器在编译时就会发现这个问题，并报告错误。
 
 - - -
 
