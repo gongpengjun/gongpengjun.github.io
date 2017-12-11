@@ -1,5 +1,5 @@
 name: iOS开发实战
 markdown: redcarpet
-pygments: true
+highlighter: rouge
 timezone: Asia/Beijing
 encoding: utf-8
