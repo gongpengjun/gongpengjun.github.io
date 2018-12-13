@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Block引起的循环引用案例剖析（三）ARC下的__block关键字有什么作用？
+title: Block引起的循环引用案例剖析（三）ARC下的__block关键字
 date:   2014-03-12 10:00:00
 categories: Objective-C
 ---
