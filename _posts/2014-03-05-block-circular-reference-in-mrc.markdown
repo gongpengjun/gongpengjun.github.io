@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Block引起的循环引用案例剖析（二）MRC下的__block关键字
+title: Block循环引用（二）MRC下的__block关键字
 date:   2014-03-05 10:00:00
 categories: Objective-C
 ---
