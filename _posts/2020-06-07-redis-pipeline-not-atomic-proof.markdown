@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Redis Pipeline是原子还是非原子操作？
+title: Redis Pipeline是原子操作吗？
 date:   2020-06-07 18:00:00
 categories: Redis
 ---
