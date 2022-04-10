@@ -5,7 +5,7 @@ date:   2014-03-04 10:00:00
 categories: Objective-C
 ---
 
-# Block引起的循环引用案例剖析（一）ARC下的__weak关键字
+# ARC下的__weak关键字
 
 在Objective-C中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用自动引用计数（ARC）情况下的代码片段和解决方案。
 

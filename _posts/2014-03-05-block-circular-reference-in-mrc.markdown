@@ -5,7 +5,7 @@ date:   2014-03-05 10:00:00
 categories: Objective-C
 ---
 
-# Block引起的循环引用案例剖析（二）MRC下的__block关键字
+# MRC下的__block关键字
 
 在Objective-C中，类的某个成员是block类型，容易引起循环引用，造成内存泄露。本文举例分析在使用手动引用计数（MRC）情况下的代码片段和解决方案。
 
