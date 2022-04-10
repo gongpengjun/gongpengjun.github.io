@@ -2,7 +2,7 @@
 layout: post
 title: ObjC Block循环引用案例剖析（三）
 date:   2014-03-12 10:00:00
-categories: Objective-C
+categories: iOS Objective-C
 ---
 
 # ARC下的__block关键字

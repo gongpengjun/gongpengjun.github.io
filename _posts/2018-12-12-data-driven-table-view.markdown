@@ -2,7 +2,7 @@
 layout: post
 title: Data Driven TableView
 date:   2018-12-12 8:00:00
-categories: iOS
+categories: iOS GUI
 ---
 
 ## Description

@@ -2,7 +2,7 @@
 layout: post
 title: ObjC Block循环引用案例剖析（一）
 date:   2014-03-04 10:00:00
-categories: Objective-C
+categories: iOS Objective-C
 ---
 
 # ARC下的__weak关键字

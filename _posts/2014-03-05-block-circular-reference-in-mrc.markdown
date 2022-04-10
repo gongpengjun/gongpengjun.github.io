@@ -2,7 +2,7 @@
 layout: post
 title: ObjC Block循环引用案例剖析（二）
 date:   2014-03-05 10:00:00
-categories: Objective-C
+categories: iOS Objective-C
 ---
 
 # MRC下的__block关键字

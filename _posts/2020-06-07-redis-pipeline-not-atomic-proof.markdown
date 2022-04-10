@@ -2,7 +2,7 @@
 layout: post
 title: Redis Pipeline是原子操作吗？
 date:   2020-06-07 18:00:00
-categories: Redis
+categories: Storage Redis
 ---
 
 众所周知，Redis流水线[pipeline](https://redis.io/topics/pipelining)功能可以实现命令的**打包发送**。
