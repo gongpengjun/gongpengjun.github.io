@@ -112,9 +112,13 @@ $ curl https://raw.githubusercontent.com/jzwinck/redis-wireshark/master/redis-wi
 
 #### 2.3.2、使用REST解码器分析
 
+分析抓包文件
+
 ```
 $ tshark -r redis_pipeline.pcapng -z "conv,tcp"
 ```
+
+分析抓包文件 - tcp stream 0
 
 ```
 $ tshark -r redis_pipeline.pcapng -z "follow,tcp,ascii,0"
@@ -134,6 +138,8 @@ $1
 	5
 +OK
 ```
+
+分析抓包文件 - tcp stream 1
 
 ```
 $ tshark -r redis_pipeline.pcapng -z "follow,tcp,ascii,1"
@@ -185,6 +191,7 @@ $1
 :1000
 ```
 
+分析抓包文件 - tcp stream 2
 
 ```
 $ tshark -r redis_pipeline.pcapng -z "follow,tcp,ascii,2"
