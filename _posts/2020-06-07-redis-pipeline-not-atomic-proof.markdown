@@ -10,6 +10,22 @@ categories: Redis
 
 - - -
 
+## 1、Redis Pipeline
+
+### 1.1、Redis without Pipeline
+
+![](../imgs/redis_pipeline_0.png)
+
+### 1.2、Redis with Pipeline
+
+#### 1.2.1、Redis Pipeline Mode - 一条一条命令单独执行
+
+![](../imgs/redis_pipeline_1.png)
+
+#### 1.2.2、Redis Pipeline Mode - Pipeline中的命令作为一个整体原子执行
+
+![](../imgs/redis_pipeline_2.png)
+
 ## 测试代码
 
 [`test_pipeline_not_atomic.py`]()
