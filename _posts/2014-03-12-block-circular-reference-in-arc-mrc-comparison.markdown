@@ -1,9 +1,11 @@
 ---
 layout: post
-title: Block循环引用（三）ARC下的__block关键字
+title: ObjC Block循环引用案例剖析（三）
 date:   2014-03-12 10:00:00
 categories: Objective-C
 ---
+
+# Block引起的循环引用案例剖析（三）ARC下的__block关键字
 
 为了避免Block相关的循环引用，MRC下使用\_\_block关键字，ARC下使用\_\_Weak关键字，它们有什么区别？既然ARC下的\_\_weak关键字更好，那为什么在ARC下看到有时使用\_\_block呢？是为了避免循环引用吗？不是的话，那ARC下的\_\_block关键字又是干什么用的呢？下面我们就来一一回答这几个问题，并举一个真实的案例说明ARC下的\_\_weak和\_\_block两个关键字各自的妙用。
 
