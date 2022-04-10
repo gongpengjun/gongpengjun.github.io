@@ -14,19 +14,26 @@ categories: Redis
 
 ### 1.1、Redis without Pipeline
 
-![](../imgs/redis_pipeline_0.png)
+![](/imgs/redis_pipeline_0.png)
 
 ### 1.2、Redis with Pipeline
 
-#### 1.2.1、Redis Pipeline Mode - 一条一条命令单独执行
+关于一次pipeline里的多条命令的执行过程，有两种推测：
 
-![](../imgs/redis_pipeline_1.png)
+- 非原子执行：一次pipeline中的多条命令一条一条执行，中间会被其它命令中断
+-  原子执行：一次pipeline中的多条命令作为一个整体一次性执行，中间不会被其它命令中断
 
-#### 1.2.2、Redis Pipeline Mode - Pipeline中的命令作为一个整体原子执行
+#### 1.2.1、Redis Pipeline Mode - 非原子执行
 
-![](../imgs/redis_pipeline_2.png)
+![](/imgs/redis_pipeline_1.png)
 
-## 测试代码
+#### 1.2.2、Redis Pipeline Mode - 原子执行
+
+![](/imgs/redis_pipeline_2.png)
+
+## 2、测试验证
+
+### 2.1、测试代码
 
 [`test_pipeline_not_atomic.py`]()
 
@@ -58,15 +65,15 @@ if __name__ == "__main__":
     threading.Thread(target=incr_func).start()
 ```
 
-## 测试抓包
+### 2.2、网络抓包
 
-### 启动redis server
+#### 2.2.1、启动redis server
 
 ```
 $ docker run --detach=true -p 6379:6379 redis:3.2.8 redis-server
 ```
 
-### 启动抓包命令
+#### 2.2.2、启动抓包命令
 
 启动Wireshark的命令行程序tshark抓取`Loopback: lo0`且TCP端口号为6379的网络包:
 
@@ -76,7 +83,7 @@ Capturing on 'Loopback: lo0'
 56 ^C
 ```
 
-### 执行测试代码
+#### 2.2.3、执行测试代码
 
 ```
 $ python3 test_pipeline_not_atomic.py
@@ -85,9 +92,9 @@ not atomic
 
 从程序的输出`not atomic`可以看到pipeline是非原子性的。
 
-## 分析网络包
+### 2.3、分析网络包
 
-### 下载RESP协议解码器
+#### 2.3.1、下载RESP协议解码器
 
 [redis-wireshark](https://github.com/jzwinck/redis-wireshark) is Redis protocol dissector for Wireshark
 
@@ -103,7 +110,7 @@ $ curl https://raw.githubusercontent.com/jzwinck/redis-wireshark/master/redis-wi
 
 如果遇到问题，也可以使用浏览器下载
 
-### 使用REST解码器分析
+#### 2.3.2、使用REST解码器分析
 
 ```
 $ tshark -r redis_pipeline.pcapng -z "conv,tcp"
@@ -228,13 +235,13 @@ $4
 
 - - -
 
-## 结论
+## 3、结论
 
 1. Redis Pipeline不保证原子性。
 1. Redis Pipeline请求和响应是流式的。
 1. Redis序列化协议(RESP)是流式协议，request/response没有开始和终止分界符。
 
-## 进一步
+## 4、扩展
 
 使用[redis-wireshark.lua](https://github.com/jzwinck/redis-wireshark)查看抓包详情:
 
