@@ -9,7 +9,7 @@ Java服务端最流行的框架是[Spring Framwork](https://spring.io/)，框架
 
 直到某一天遇到一个错误：
 ```
-IllegalStateException: AnnotationConfigServletWebServerApplicationContext has not been refreshed yet
+java.lang.IllegalStateException: AnnotationConfigServletWebServerApplicationContext has not been refreshed yet
 ```
 要想理解这个错误的根因并找到解决办法，就需要深入理解Spring的工作原理和实现细节了。
 
