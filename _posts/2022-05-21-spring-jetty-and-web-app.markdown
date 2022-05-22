@@ -35,28 +35,32 @@ Java Servlet Spec主要是约定了Servlet和Servlet容器之间的交互方式�
 
 ```java
 public interface Servlet {
-    public void init(ServletConfig config);
-    public void service(ServletRequest req, ServletResponse res);
-    public void destroy();
+  public void init(ServletConfig config);
+  public void service(ServletRequest,ServletResponse);
+  public void destroy();
 }
 ```
 
-Servlet容器调用servlet的`init()`方法来对其初始化，开启Servlet的生命周期，调用`destroy()`方法来销毁结束其生命周期，在servlet存活期间，每收到一个客户端请求，Servlet容器就调用servlet的方法`service()`来让其处理请求。
+一个实现了Servlet接口的类就是一个Servlet，通过`init()`初始化，通过`destroy()`销毁，在存活期间通过`service()`方法的ServletRequest参数接收客户端请求并将通过ServletResponse参数返回响应。
 
-Servlet如果需要跟Servlet容器沟通，可以通过其初始化参数ServletConfig获得一个实现[ServletContext](https://github.com/javaee/servlet-spec/blob/master/src/main/java/javax/servlet/ServletContext.java)接口的对象，通过ServletContext就可以跟ServletContainer沟通。
-
+[ServletContext](https://github.com/javaee/servlet-spec/blob/master/src/main/java/javax/servlet/ServletContext.java)接口：
 ```java
 public interface ServletContext {
-	//...
-	public ServletRegistration.Dynamic 
-	addServlet(String servletName, Servlet servlet);
-	//...
+  public ServletRegistration.Dynamic 
+  addServlet(String servletName, Servlet servlet);
 }
 ```
 
-更重要的，在往一个Servlet容器中添加Servlet时可以通过ServletContext接口方法`addServlet()`将自己的servlet注册到Servlet容器中。
+一个Servlet容器一般都要提供一个实现了ServletContext接口的类，通过`addServlet()`，使用者可以注册一个或多个Servlet到Servlet容器里，每个Servlet负责一个或一组URI路径，路径为`/`的Servlet称为根Servlet。
 
-具体到Spring和Jetty，Spring Framework中的类DispatcherServlet就是实现了Servlet接口，Jetty中的WebAppContext类的内部类WebAppContext.Context实现了ServletContext接口。
+于是Servlet Context和Servlet形成如下的关系来为用户提供服务：
+
+<img src="https://gongpengjun.com/imgs/java_servlet_container_and_servlet.svg" width="100%" alt="Java Servlet Container and Servlet">
+
+
+### 1.2、Java服务端标准 - Servlet
+
+Spring Framework中的类DispatcherServlet就是实现了Servlet接口，Jetty中的WebAppContext类的内部类WebAppContext.Context实现了ServletContext接口。
 
 ### 1.2、Web Server/Web Container/Web App
 
