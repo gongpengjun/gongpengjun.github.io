@@ -53,7 +53,7 @@ public interface ServletContext {
 
 一个Servlet容器一般都要提供一个实现了ServletContext接口的类，通过`addServlet()`，使用者可以注册一个或多个Servlet到Servlet容器里，每个Servlet负责一个或一组URI路径，路径为`/`的Servlet称为根Servlet。
 
-于是Servlet Context和Servlet形成如下的关系来为用户提供服务：
+小结：Servlet Spec约定的服务模型
 
 <img src="https://gongpengjun.com/imgs/java_servlet_container_and_servlet.svg" width="100%" alt="Java Servlet Container and Servlet">
 
@@ -88,4 +88,5 @@ Java服务端的技术标准是Java Servlet API，
 - Servlet History: https://jamesgdriscoll.wordpress.com/2010/02/09/servlet-history/
 - Java Servlet 3.1 Specification: https://jcp.org/en/jsr/detail?id=340
 - Java Servlet 4.0 Specification: https://jcp.org/en/jsr/detail?id=369
+- Understanding Java Servlet Architecture: https://codeburst.io/understanding-java-servlet-architecture-b74f5ea64bf4
 
