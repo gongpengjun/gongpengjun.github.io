@@ -19,6 +19,6 @@ IllegalStateException: AnnotationConfigServletWebServerApplicationContext has no
 
 ## 1、结论 - Spring + Jetty + Web App一览
 
-<img src="https://gongpengjun.com/imgs/spring_jetty_web_app.svg" width="80%" alt="Spring Jetty And Web App">
+<img src="https://gongpengjun.com/imgs/spring_jetty_web_app.svg" width="100%" alt="Spring Jetty And Web App">
 
 一图胜千言，下文这幅概览图的详细解释。
