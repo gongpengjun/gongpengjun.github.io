@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring Jetty And Web App
-date:   2022-05-21 21:19:00
+date:   2022-05-22 23:44:00
 categories: Java Framework
 ---
 
