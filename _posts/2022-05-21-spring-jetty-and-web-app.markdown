@@ -249,11 +249,11 @@ public class JettyServletWebServerFactory extends AbstractServletWebServerFactor
 }
 ```
 
-Jetty的`Server`对象管理Jetty的Web Server
+Jetty的`Server`对象管理Web Server，负责监听端口，接收用户请求，此处只是创建`Server`对象，并未开始端口监听。
 
-`JettyEmbeddedWebAppContext`对象继承自Jetty的`WebAppContext`，是Jetty的Servlet Container，其内部类`WebAppContext.Context`实现了`ServletContext`接口
+`JettyEmbeddedWebAppContext`继承自Jetty的`WebAppContext`，角色是Servlet Container，其内部类`WebAppContext.Context`实现了`ServletContext`接口。
 
-`JettyServletWebServerFactory.getWebServer()`先将JettyEmbeddedWebAppContext设置为Jetty `Server`对象的handler，这样就完成了Jetty Web Server和Jetty Web Container的关联。
+`JettyServletWebServerFactory.getWebServer()`先将JettyEmbeddedWebAppContext设置为Jetty `Server`对象的handler，这样就完成了Jetty Web Server和Jetty Web Container之间的关联。
 
 ### 2.2、Spring Boot 注册DispatcherServlet
 
