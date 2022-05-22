@@ -5,7 +5,7 @@ date:   2022-05-21 21:19:00
 categories: Java Framework
 ---
 
-Java服务端最流行的框架是[Spring](https://spring.io/)，框架越成熟，业务开发时越能聚焦业务，这很省心、也很有效率。
+Java服务端最流行的框架是[Spring Framwork](https://spring.io/)，框架越成熟，业务开发时越能聚焦业务，这很省心、也很有效率。
 
 直到某一天遇到一个错误：
 ```
