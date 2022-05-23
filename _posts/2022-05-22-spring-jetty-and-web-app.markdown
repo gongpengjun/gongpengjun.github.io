@@ -25,8 +25,6 @@ java.lang.IllegalStateException: AnnotationConfigServletWebServerApplicationCont
 
 ### 1.1、Java服务端标准 - Servlet
 
-[Java Servlet 3.1 Specification](https://jcp.org/en/jsr/detail?id=340) 2013年发布，Spring 5只支持3.0以上的Servlet规范，[Java Servlet 4.0 Specification](https://jcp.org/en/jsr/detail?id=369) 于2017年发布，主要增加了http2.0的支持。
-
 Java Servlet Spec主要是约定了Servlet和Servlet容器之间的交互方式。
 
 主要是Servlet、ServletContext两个接口。
@@ -57,6 +55,8 @@ public interface ServletContext {
 小结：Servlet Spec约定的服务模型
 
 <img src="https://gongpengjun.com/imgs/java_servlet_container_and_servlet.svg" width="100%" alt="Java Servlet Container and Servlet">
+
+备注：[Java Servlet 3.1 Specification](https://jcp.org/en/jsr/detail?id=340) 2013年发布，Spring 5只支持3.0以上的Servlet规范，[Java Servlet 4.0 Specification](https://jcp.org/en/jsr/detail?id=369) 于2017年发布，主要增加了http2.0的支持。
 
 ### 1.2、概念解释
 
