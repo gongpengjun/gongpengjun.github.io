@@ -296,12 +296,12 @@ public class ServletContextInitializerConfiguration extends AbstractConfiguratio
 package org.springframework.boot.web.servlet.context;
 public class ServletWebServerApplicationContext extends GenericWebApplicationContext 
                                   implements ConfigurableWebServerApplicationContext {
-  private void selfInitialize(ServletContext servletContext) throws ServletException {
+  private void selfInitialize(ServletContext servletContext) {
     for (ServletContextInitializer beans : getServletContextInitializerBeans()) {
       beans.onStartup(servletContext);
     }
   }
-  protected Collection<ServletContextInitializer> getServletContextInitializerBeans() {
+  Collection<ServletContextInitializer> getServletContextInitializerBeans() {
     return new ServletContextInitializerBeans(getBeanFactory());
   }
 }
