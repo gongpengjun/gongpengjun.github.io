@@ -71,7 +71,7 @@ public interface ServletContext {
 
 ### 2.1、Spring Boot 初始化 Jetty Server 和 Jetty Servlet Container
 
-Java应用入口函数`main()`调用`SpringApplication.run()`来启动服务。
+1️⃣ Java应用入口函数`main()`调用`SpringApplication.run()`来启动服务。
 
 ```java
 @SpringBootApplication
@@ -83,21 +83,18 @@ public class Application {
 }
 ```
 
-1️⃣ `SpringApplication.run()`会创建AnnotationConfigServletWebServerApplicationContext对象并调用其`refresh()`方法
+2️⃣ `SpringApplication.run()`会创建AnnotationConfigServletWebServerApplicationContext对象并调用其`refresh()`方法
 
 ```java
 package org.springframework.boot;
 public class SpringApplication {
-  public static final String DEFAULT_SERVLET_WEB_CONTEXT_CLASS = "org.springframework.boot."
-                 + "web.servlet.context.AnnotationConfigServletWebServerApplicationContext";
   public ConfigurableApplicationContext run(String... args) {
     ConfigurableApplicationContext context = createApplicationContext();
     refreshContext(context);
     return context;
   }
-  
   protected ConfigurableApplicationContext createApplicationContext() {
-    Class<?> contextClass = Class.forName(DEFAULT_SERVLET_WEB_CONTEXT_CLASS);
+    Class<?> contextClass = Class.forName("AnnotationConfigServletWebServerApplicationContext");
     return (ConfigurableApplicationContext)BeanUtils.instantiateClass(contextClass);
   }
   private void refreshContext(ConfigurableApplicationContext context) {
@@ -107,74 +104,53 @@ public class SpringApplication {
 }
 ```
 
-2️⃣ `AbstractApplicationContext`实现了`refresh()`方法，这是Spring Framework的核心方法。
+3️⃣  `AbstractApplicationContext`实现了`refresh()`方法，这是Spring Framework的核心方法，注释说明每一步的作用。
 
 ```java
 package org.springframework.context.support;
-public abstract class AbstractApplicationContext extends DefaultResourceLoader 
-                                     implements ConfigurableApplicationContext {
+public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
   @Override
   public void refresh() throws BeansException, IllegalStateException {
     synchronized (this.startupShutdownMonitor) {
-      // Prepare this context for refreshing.
+      // 准备和验证系统属性和环境变量
       prepareRefresh();
-
-      // Tell the subclass to refresh the internal bean factory.
+      // 创建Bean Factory并扫描加载所有的Bean Definition
       ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
-
-      // Prepare the bean factory for use in this context.
+      // 配置Bean Factory的功能，处理特殊处理规则和内置Bean
       prepareBeanFactory(beanFactory);
-
-      // Allows post-processing of the bean factory in context subclasses.
+      // 预留给子类的扩展点
       postProcessBeanFactory(beanFactory);
-
-      // Invoke factory processors registered as beans in the context.
+      // 调用Bean Factory后处理器
       invokeBeanFactoryPostProcessors(beanFactory);
-
-      // Register bean processors that intercept bean creation.
+      // 注册Bean后处理器
       registerBeanPostProcessors(beanFactory);
-
-      // Initialize message source for this context.
+      // 初始化Message Source，支持多语言
       initMessageSource();
-
-      // Initialize event multicaster for this context.
+      // 初始化ApplicationEventMulticaster, 缺省为SimpleApplicationEventMulticaster
       initApplicationEventMulticaster();
-
-      // Initialize other special beans in specific context subclasses.
+      // 预留给子类初始化特殊的Bean，ServletWebServerApplicationContext子类会在此初始化WebServer
       onRefresh();
-
-      // Check for listener beans and register them.
+      // 注册实现ApplicationListener接口的Bean为Listener
       registerListeners();
-
-      // Instantiate all remaining (non-lazy-init) singletons.
+      // 实例化所有的单例Bean(标记为懒加载的单例Bean除外)
       finishBeanFactoryInitialization(beanFactory);
-
-      // Last step: publish corresponding event.
+      // 注册DefaultLifecycleProcessor并调用onRefresh方法
       finishRefresh();
     }
   }
 }
 ```
 
-- `prepareRefresh()`准备和验证系统属性和环境变量
-- `obtainFreshBeanFactory()`创建Bean Factory并扫描加载所有的Bean Definition
-- `prepareBeanFactory()` 配置Bean Factory的功能，处理特殊处理规则和内置Bean
-- `postProcessBeanFactory()`预留给子类的扩展点
-- `invokeBeanFactoryPostProcessors()`调用Bean Factory后处理器
-- `registerBeanPostProcessors()`注册Bean后处理器
-- `initMessageSource()`初始化Message Source，支持多语言
-- `initApplicationEventMulticaster()`初始化Spring Event Pub/Sub机制
-- `onRefresh()`预留给子类初始化特殊的Bean，ServletWebServerApplicationContext子类会在此初始化WebServer
-- `registerListeners()`注册Spring Event Pub/Sub机制中的Listeners
-- `finishBeanFactoryInitialization()`实例化所有的单例Bean(标记为懒加载的单例Bean除外)
-- `finishRefresh()`发布`ContextRefreshedEvent`事件通知此ApplicationContext初始化并refresh完成
+其中关键点：
 
-3️⃣ 子类ServletWebServerApplicationContext的`onRefresh()`在refresh过程中被调用，onRefresh()中创建嵌入式WebServer。
+- `onRefresh()` 子类ServletWebServerApplicationContext重载该方法执行创建WebServer并初始化
+- `finishRefresh()` 调用`DefaultLifecycleProcessor.onRefresh()`来启动所有实现LifeCycle接口的Bean
+
+4️⃣ 子类ServletWebServerApplicationContext的`onRefresh()`在refresh过程中被调用，onRefresh()中创建嵌入式WebServer。
 
 ```java
 package org.springframework.boot.web.servlet.context;
-public class ServletWebServerApplicationContext extends GenericWebApplicationContext 
-                                  implements ConfigurableWebServerApplicationContext {
+public class ServletWebServerApplicationContext extends GenericWebApplicationContext implements ConfigurableWebServerApplicationContext {
   @Override
   protected void onRefresh() {
     super.onRefresh();
@@ -183,12 +159,11 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 }
 ```
 
-4️⃣ ServletWebServerApplicationContext的`createWebServer()`会查找注册的ServletWebServerFactory并创建WebServer
+5️⃣ ServletWebServerApplicationContext的`createWebServer()`会查找注册的ServletWebServerFactory并创建WebServer
 
 ```java
 package org.springframework.boot.web.servlet.context;
-public class ServletWebServerApplicationContext extends GenericWebApplicationContext 
-                                  implements ConfigurableWebServerApplicationContext {
+public class ServletWebServerApplicationContext extends GenericWebApplicationContext implements ConfigurableWebServerApplicationContext {
   private void createWebServer() {
     ServletWebServerFactory factory = getWebServerFactory();
     this.webServer = factory.getWebServer(getSelfInitializer());
@@ -215,8 +190,7 @@ static class EmbeddedJetty {
 
 ```java
 package org.springframework.boot.web.servlet.context;
-public class ServletWebServerApplicationContext extends GenericWebApplicationContext 
-                                  implements ConfigurableWebServerApplicationContext {
+public class ServletWebServerApplicationContext extends GenericWebApplicationContext  implements ConfigurableWebServerApplicationContext {
   private org.springframework.boot.web.servlet.ServletContextInitializer getSelfInitializer() {
     return this::selfInitialize;
   }
@@ -227,8 +201,7 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 
 ```java
 package org.springframework.boot.web.embedded.jetty;
-public class JettyServletWebServerFactory extends AbstractServletWebServerFactory
-		implements ConfigurableJettyWebServerFactory, ResourceLoaderAware {
+public class JettyServletWebServerFactory extends AbstractServletWebServerFactory implements ConfigurableJettyWebServerFactory, ResourceLoaderAware {
   @Override
   public WebServer getWebServer(ServletContextInitializer... initializers) {
     JettyEmbeddedWebAppContext context = new JettyEmbeddedWebAppContext();
@@ -258,7 +231,7 @@ Jetty的`Server`对象管理Web Server，负责监听端口，接收用户请求
 
 注意：`configureWebAppContext()`会将`ServletWebServerApplicationContext::selfInitialize`包装为`ServletContextInitializerConfiguration` 然后作为配置添加到`JettyEmbeddedWebAppContext` 的父类`WebAppContext`的`_configurations`变量中。
 
-5️⃣ `getJettyWebServer()`会创建`JettyWebServer`对象并调用其`initialize()`方法进行初始化
+6️⃣ `getJettyWebServer()`会创建`JettyWebServer`对象并调用其`initialize()`方法进行初始化
 
 ```java
 package org.springframework.boot.web.embedded.jetty;
@@ -298,7 +271,7 @@ public class JettyWebServer implements WebServer {
 
 Jetty`Server.start()`方法中会触发Servlet Container `WebAppContext`的`doStart()`并执行其的`_configurations`变量中的配置对象的`configure()`方法。
 
-6️⃣ `ServletContextInitializerConfiguration.configure`其实就是调用`callInitializers()`
+7️⃣ `ServletContextInitializerConfiguration.configure`其实就是调用`callInitializers()`，会逐个调用注册的`ServletContextInitializer` lamda，其中就有`ServletWebServerApplicationContext::selfInitialize`方法。
 
 ```java
 package org.springframework.boot.web.embedded.jetty;
@@ -315,8 +288,6 @@ public class ServletContextInitializerConfiguration extends AbstractConfiguratio
   }
 }
 ```
-
-7️⃣ `callInitializers()`会逐个调用注册的`ServletContextInitializer` lamda，其中就有4️⃣Spring Boot注册的`ServletWebServerApplicationContext::selfInitialize`方法。
 
 8️⃣ `ServletWebServerApplicationContext::selfInitialize`创建ServletContextInitializerBeans并调用其`onStartup()`方法 
 
@@ -414,20 +385,17 @@ public class DispatcherServletRegistrationBean
 
 ### 2.2、Spring Boot 启动 Jetty Server 端口监听并接收请求
 
-2️⃣ AbstractApplicationContext的`refresh()`方法的中间步骤`onRefresh()`触发了Jetty Web Server的创建
-
-4️⃣ ServletWebServerApplicationContext的`createWebServer()`中会向Spring Container中注册了`WebServerStartStopLifecycle`对象
+AbstractApplicationContext的`refresh()`方法的中间步骤`onRefresh()`触发了ServletWebServerApplicationContext的`createWebServer()`，会向Spring Container中注册了`WebServerStartStopLifecycle`对象
 
 ```java
 this.getBeanFactory().registerSingleton("webServerStartStop", new WebServerStartStopLifecycle(this, this.webServer));
 ```
 
-2️⃣ AbstractApplicationContext的`refresh()`方法的最后一步是`finishRefresh()`初始化DefaultLifecycleProcessor并调用其`onRefresh()`方法
+🔟 AbstractApplicationContext的`refresh()`方法的最后一步`finishRefresh()`会初始化DefaultLifecycleProcessor并调用其`onRefresh()`方法
 
 ```java
 package org.springframework.context.support;
-public abstract class AbstractApplicationContext extends DefaultResourceLoader 
-                                     implements ConfigurableApplicationContext {
+public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
   protected void finishRefresh() {
     initLifecycleProcessor();
     getLifecycleProcessor().onRefresh();
