@@ -39,7 +39,7 @@ public interface Servlet {
 }
 ```
 
-一个实现了Servlet接口的类就是一个Servlet，通过`init()`初始化，通过`destroy()`销毁，在存活期间通过`service()`方法的ServletRequest参数接收客户端请求并将通过ServletResponse参数返回响应。
+一个实现了Servlet接口的类就是一个Servlet，通过`init()`初始化，通过`destroy()`销毁，在存活期间通过`service()`方法处理请求。
 
 [ServletContext](https://github.com/javaee/servlet-spec/blob/master/src/main/java/javax/servlet/ServletContext.java)接口：
 
@@ -441,7 +441,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
   }
   LifecycleProcessor getLifecycleProcessor() {
     return this.lifecycleProcessor;
-  }  
+  }
 }
 ```
 DefaultLifecycleProcessor的`onRefresh()`方法收集所有的Lifecycle Bean，包含SmartLifecycle，并按SmartLifecycle中`getPhase()`返回的优先级执行`start()`方法
