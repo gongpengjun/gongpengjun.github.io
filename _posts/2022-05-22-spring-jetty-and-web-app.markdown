@@ -21,7 +21,7 @@ java.lang.IllegalStateException: AnnotationConfigServletWebServerApplicationCont
 
 <img src="https://gongpengjun.com/imgs/spring_jetty_web_app.svg" width="100%" alt="Spring Jetty And Web App">
 
-一图胜千言，下文是这幅概览图的详细解释。
+一图胜千言，下文对这幅一览图进行详细解释。
 
 ### 1.1、Java服务端标准 - Servlet
 
