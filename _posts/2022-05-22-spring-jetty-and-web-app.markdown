@@ -128,7 +128,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
       initMessageSource();
       // 初始化ApplicationEventMulticaster, 缺省为SimpleApplicationEventMulticaster
       initApplicationEventMulticaster();
-      // 预留给子类初始化特殊的Bean，ServletWebServerApplicationContext子类会在此初始化WebServer
+      // 预留给子类的扩展点
       onRefresh();
       // 注册实现ApplicationListener接口的Bean为Listener
       registerListeners();
@@ -143,8 +143,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
 其中关键点：
 
-- `onRefresh()` 子类ServletWebServerApplicationContext重载该方法执行创建WebServer并初始化
-- `finishRefresh()` 调用`DefaultLifecycleProcessor.onRefresh()`来启动所有实现LifeCycle接口的Bean
+- `onRefresh()` 子类ServletWebServerApplicationContext重载来创建WebServer
+- `finishRefresh()` 调用`DefaultLifecycleProcessor.onRefresh()`来扫描所有实现LifeCycle接口的Bean并调用其`start()`方法
 
 4️⃣ 子类ServletWebServerApplicationContext的`onRefresh()`在refresh过程中被调用，onRefresh()中创建嵌入式WebServer。
 
@@ -167,7 +167,8 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
   private void createWebServer() {
     ServletWebServerFactory factory = getWebServerFactory();
     this.webServer = factory.getWebServer(getSelfInitializer());
-    this.getBeanFactory().registerSingleton("webServerStartStop", new WebServerStartStopLifecycle(this, this.webServer));
+    this.getBeanFactory().registerSingleton("webServerStartStop", 
+       new WebServerStartStopLifecycle(this, this.webServer));
   }
 }
 ```
