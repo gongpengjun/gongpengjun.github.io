@@ -13,7 +13,7 @@ java.lang.IllegalStateException: AnnotationConfigServletWebServerApplicationCont
 ```
 要想理解这个错误的根因并找到解决办法，就需要深入理解Spring的工作原理和实现细节了。
 
-本文就针对使用较多的Java 8 + Spring 5 + Jetty 9组合进行源码分析，看看使用服务是怎么启动，怎么运行的。
+本文就针对使用较多的Java 8 + Spring 5 + Jetty 9组合进行源码分析，看看Spring服务是怎么启动，怎么运行的。
 
 - - -
 
