@@ -14,7 +14,7 @@ categories: Storage Redis
 
 ### 1.1、Redis without Pipeline
 
-![](/imgs/redis_pipeline_0.png)
+![redis without pipeline](/imgs/redis_pipeline_0.svg)
 
 ### 1.2、Redis with Pipeline
 
@@ -25,11 +25,11 @@ categories: Storage Redis
 
 #### 1.2.1、Redis Pipeline Mode - 非原子执行
 
-![](/imgs/redis_pipeline_1.png)
+![redis pipeline mode - non-atomic](/imgs/redis_pipeline_1.svg)
 
 #### 1.2.2、Redis Pipeline Mode - 原子执行
 
-![](/imgs/redis_pipeline_2.png)
+![redis pipeline mode - atomic](/imgs/redis_pipeline_2.svg)
 
 ## 2、测试验证
 
