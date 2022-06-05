@@ -32,8 +32,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 121%; 
+  font-size: 150%; 
   text-align: center;
+}
+
+h2 {
+  font-size: 135%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+h4 {
+  font-size: 112%;
 }
 
 p { margin: 1em 0; }
