@@ -11,7 +11,7 @@ categories: iOS Objective-C
 
 - - -
 
-# 错误代码
+### 错误代码
 
 ```objc
 // ARC-Enabled (-fobjc-arc)
@@ -39,12 +39,12 @@ int main() {
 ```
 
 
-# 错误现象
+### 错误现象
 
 *-[MyObject dealloc]永远不会被调用到。*
 
 
-# 错误原理
+### 错误原理
 
 self强引用block，block强引用self，循环引用，谁都无法释放，表现为self的dealloc无法被调用。
 
@@ -55,7 +55,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 1. 因为self和堆上的block相互强引用，谁都无法释放，导致内存泄露。
 
 
-# 解决方案一：简单方案
+### 解决方案一：简单方案
 
 * 将self赋给声明为\_\_weak的自动变量，让block使用(捕获)该\_\_weak变量，这样block不再持有self的引用，打破了循环引用，避免了内存泄露。
 * 因为block捕获的wself是一个\_\_weak类型，当self被释放时，wself会自动被置为nil，这样block代码访问wself时，不会引用到野指针。
@@ -70,7 +70,7 @@ self强引用block，block强引用self，循环引用，谁都无法释放，�
 ```
 
 
-# 解决方案二：完善方案
+### 解决方案二：完善方案
 
 上面的解决方案一存在两个问题：
 
@@ -101,7 +101,11 @@ block内部的sself是临时变量，只会在block被执行的短暂时间段�
 * 在block被执行之后，临时变量sself被释放，不存在循环引用。
 
 
-# 真实案例
+### 真实案例
 
 最后，举一个使用方案二的实例，AFNetworking的实现代码：
 [UIImageView+AFNetworking](https://github.com/AFNetworking/AFNetworking/blob/master/UIKit%2BAFNetworking/UIImageView%2BAFNetworking.m#L142-L146)
+
+### 继续阅读
+
+* <a href="/ios/objective-c/block-circular-reference-in-mrc.html" target="_blank">Block引起的循环引用案例剖析（二）MRC下的__block关键字</a>

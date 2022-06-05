@@ -11,7 +11,7 @@ categories: iOS Objective-C
 
 - - -
 
-# 错误代码
+### 错误代码
 
 ```objc
 // MRC or ARC-Disabled (-fno-objc-arc)
@@ -42,12 +42,12 @@ int main() {
 ```
 
 
-# 错误现象
+### 错误现象
 
 *-[MyObject dealloc]永远不会被调用到。*
 
 
-# 错误原理
+### 错误原理
 
 self是持有堆上的block的引用，堆上block持有self的引用，循环引用，谁都无法释放，表现为dealloc无法被调用。
 
@@ -57,7 +57,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 1. 因为self和堆上block相互引用，谁都无法释放，导致内存泄露。
 
 
-# 解决方案
+### 解决方案
 
 将self赋给声明为\_\_block的自动变量，让block使用(捕获)该\_\_block变量，这时，block不会增加self的引用应用计数，打破了循环引用，避免了内存泄露。
 
@@ -86,3 +86,7 @@ self是持有堆上的block的引用，堆上block持有self的引用，循环�
 **该方案的缺陷是：如果self被释放了，block代码访问到的unsafe_self会是野指针，会导致崩溃。**
 
 使用该方法，要确保block只被self引用，这样当self不存在时，block也就被释放了，没有机会执行，也就没有机会访问所谓的野指针而造成崩溃了。
+
+### 继续阅读
+
+* <a href="/ios/objective-c/block-circular-reference-in-arc-mrc-comparison.html" target="_blank">ObjC Block循环引用案例剖析（三）ARC下的__block关键字</a>
