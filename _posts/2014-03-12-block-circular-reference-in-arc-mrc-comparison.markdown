@@ -16,7 +16,7 @@ categories: iOS Objective-C
 
 参见本系列的前两篇文章
 
-* <a href="/ios/objective-c/block-circular-reference-in-mrc.html" target="_blank">Block引起的循环引用案例剖析（一）ARC下的__weak关键字</a>
+* <a href="/ios/objective-c/block-circular-reference-in-arc.html" target="_blank">Block引起的循环引用案例剖析（一）ARC下的__weak关键字</a>
 * <a href="/ios/objective-c/block-circular-reference-in-mrc.html" target="_blank">Block引起的循环引用案例剖析（二）MRC下的__block关键字</a>
 
 我们知道
