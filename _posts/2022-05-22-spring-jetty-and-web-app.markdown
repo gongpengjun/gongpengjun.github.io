@@ -513,8 +513,8 @@ public class JettyWebServer implements WebServer {
 
 ## 4、参考
 
-- Servlet History: https://jamesgdriscoll.wordpress.com/2010/02/09/servlet-history/
-- Java Servlet 3.1 Specification: https://jcp.org/en/jsr/detail?id=340
-- Java Servlet 4.0 Specification: https://jcp.org/en/jsr/detail?id=369
-- Understanding Java Servlet Architecture: https://codeburst.io/understanding-java-servlet-architecture-b74f5ea64bf4
+- [Servlet History](https://jamesgdriscoll.wordpress.com/2010/02/09/servlet-history/)
+- [Java Servlet 3.1 Specification](https://jcp.org/en/jsr/detail?id=340)
+- [Java Servlet 4.0 Specification](https://jcp.org/en/jsr/detail?id=369)
+- [Understanding Java Servlet Architecture](https://codeburst.io/understanding-java-servlet-architecture-b74f5ea64bf4)
 
