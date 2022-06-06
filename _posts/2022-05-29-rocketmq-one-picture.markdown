@@ -47,6 +47,6 @@ RocketMQ设计特点：
 
 ## 2、参考
 
-- 你管这破玩意儿叫 MQ?  https://mp.weixin.qq.com/s/hd8z2F1hLbrykxZL6gQb1g
-- RocketMQ Design: https://github.com/apache/rocketmq/blob/develop/docs/cn/design.md
+- [RocketMQ Design](https://github.com/apache/rocketmq/blob/develop/docs/cn/design.md)
+- [你管这破玩意儿叫 MQ?](https://mp.weixin.qq.com/s/hd8z2F1hLbrykxZL6gQb1g)
 
