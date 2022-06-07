@@ -24,7 +24,8 @@ RocketMQ设计特点：
   - 一个Consumer Group中不能有多个Consumer消费同一个Queue的消息。
   - 一台Consumer可以消费多个Queue的消息。如Broker中有两个Queue但Consumer Group中只有一个Consumer，则该consumer会消费两个Queue的消息。
 - Consumer消费的位置记录信息保存在Broker的consumerOffset.json文件中
-  - consumerOffset 是一个嵌套Map：`{ "${topic}@${consumer_group}" : { ${QueueId} : ${consumerOffset} }`
+  - 对于每个consumer group来说，一个queue有且只能有一个consumer来消费，所以记录的是每个queue的消费位置
+  - consumerOffset 是一个嵌套Map：`{ "$topic@$consumer_group" : { $QueueId : $offset } }`
   - 文件路径 `$HOME/store/config/consumerOffset.json`
   - consumerOffset.json文件内容示例：
 
