@@ -11,7 +11,7 @@ IM系统是一个复杂的端到端系统，其业务本质要求系统必须是
 
 ## 1、IM系统一览图 - 三纵三横
 
-<img src="https://gongpengjun.com/imgs/im707/im001.svg" width="100%" alt="IM001-三纵三横">
+<img src="https://gongpengjun.com/imgs/im707/im001.png" width="100%" alt="IM001-三纵三横">
 
 从业务角度看，一个IM系统必须是三纵三横的架构，具体划分如下：
 
