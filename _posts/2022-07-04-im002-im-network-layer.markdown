@@ -5,7 +5,7 @@ date: 2022-07-03 09:00:00
 categories: IM707
 ---
 
-IM系统是一个复杂的端到端系统，其业务本质要求系统必须是三纵三横的架构。
+IM系统要在端到端之间实时传递消息，所以网络层是其最核心的组成部分。
 
 <img src="https://gongpengjun.com/imgs/im707/im002.png" width="100%" alt="IM002-网络层">
 
