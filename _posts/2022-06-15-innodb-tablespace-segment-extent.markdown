@@ -87,7 +87,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 ## 4、InnoDB表空间布局全貌
 
-根据上面的知识，来看看Jeremy Cole画的[InnoDB文件布局图](https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/)一文的 Space files 小节的概览图，就很容易理解了。
+根据上面的知识，来看看Jeremy Cole在[The basics of InnoDB space file layout](https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/)一文 Space files 小节中画的file space概览图，就很容易理解了。
 
 <img src="https://gongpengjun.com/imgs/innodb/Space_File_Overview.png" width="100%" alt="Space File Overview">
 
@@ -111,7 +111,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 ## 5、索引index的逻辑布局全貌
 
-基于以上所以的理解，再来看MySQL官方博客引用的Jeremy Cole画的一个InnoDB索引文件的全景图，就可以理解了。
+基于以上所以的理解，再来看MySQL官方博客引用的Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)一文最后画的一个InnoDB索引文件的全景图，就很容易理解了。
 
 <img src="https://gongpengjun.com/imgs/innodb/jeremycole_innodb_segment_and_extent.jpeg" width="100%" alt="Index File Segment Structure">
 
