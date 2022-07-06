@@ -9,6 +9,10 @@ MySQL中最常用的存储引擎是InnoDB，而InnoDB最核心的任务是把数
 
 - - -
 
+## 0、页 page
+
+因为磁盘块存储设备，为了最大化磁盘的访问速度，InnoDB按照页为最小单位来读写硬盘，InnoDB中一个页是16KiB（最常见配置）。
+
 ## 1、区 extent
 
 ### 1.1、extent 和 xdes entry
