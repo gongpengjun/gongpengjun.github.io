@@ -133,7 +133,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 <img src="https://gongpengjun.com/imgs/innodb/innodb_tablespace_logic_layout.jpeg" width="100%" alt="Tablespace Logic Layout">
 
-这是一个又具象到抽象的归纳总结过程，我更擅长先具象，再抽象，因为这样没有疑问和悬念，心里踏实。
+这是一个由具象到抽象的提炼总结过程，提炼出的东西自然心中有数。我更擅长先具象，再抽象，因为这样没有疑问和悬念，心里踏实。
 
 ## 7、参考
 
