@@ -5,7 +5,7 @@ date:   2022-06-15 09:00:00
 categories: MQ
 ---
 
-MySQL中最常用的存储引擎是InnoDB，而InnoDB最核心的任务是把数据存放在磁盘上，我们一起看看InnoDB文件在磁盘上的逻辑和物理布局。
+MySQL中最常用的存储引擎是InnoDB，存储引擎最核心的任务是把数据存放在磁盘上，本文尝试理解InnoDB文件在磁盘上的逻辑布局和物理布局。
 
 - - -
 
@@ -109,7 +109,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 > InnoDB 的数据存储模型使用“空间”，在 MySQL 的上下文中通常称为“表空间”，有时在 InnoDB 本身中称为“文件空间”。
 
-## 5、索引index的逻辑布局全貌
+## 5、索引index的物理布局全貌
 
 基于以上所以的理解，再来看MySQL官方博客引用的Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)一文最后画的一个InnoDB索引文件的全景图，就很容易理解了。
 
@@ -127,7 +127,15 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
   - Page 16384：即第二个256MiB中的第一个页是纯粹存放xdes entry的xdes page
     - 页号16384即16KiB，说明该页前面有16KiB*16KiB=256MiB的空间
 
-## 6、参考
+## 6、表空间tablespace的逻辑布局全貌
+
+看懂了IBD文件的物理布局和索引Index的物理布局，再来看经常见到的表空间tablespace的逻辑布局，心中就有了然了。
+
+<img src="https://gongpengjun.com/imgs/innodb/innodb_tablespace_logic_layout.jpeg" width="100%" alt="Tablespace Logic Layout">
+
+这是一个又具象到抽象的归纳总结过程，我更擅长先具象，再抽象，因为这样没有疑问和悬念，心里踏实。
+
+## 7、参考
 
 - [InnoDB : Tablespace Space Management](https://dev.mysql.com/blog-archive/innodb-tablespace-space-management/)
 - [Extent Descriptor Page of InnoDB](https://dev.mysql.com/blog-archive/extent-descriptor-page-of-innodb/)
