@@ -1,8 +1,8 @@
 ---
 layout: post
 title: InnoDB表空间布局理解
-date:   2022-06-15 09:00:00
-categories: MQ
+date:   2022-07-09 09:00:00
+categories: mysql
 ---
 
 MySQL中最常用的存储引擎是InnoDB，存储引擎最核心的任务是把数据存放在磁盘上，本文尝试理解InnoDB文件在磁盘上的逻辑布局和物理布局。
@@ -11,7 +11,7 @@ MySQL中最常用的存储引擎是InnoDB，存储引擎最核心的任务是把
 
 ## 0、页 page
 
-因为磁盘块存储设备，为了最大化磁盘的访问速度，InnoDB按照页为最小单位来读写硬盘，InnoDB中一个页是16KiB（最常见配置）。
+磁盘是块存储设备，为了最大化磁盘的访问速度，InnoDB按照页为最小单位来读写硬盘，按最常见配置，一个页是16KiB。
 
 ## 1、区 extent
 
@@ -37,7 +37,7 @@ InnoDB用专门的页来存储xdes entry，这种页叫做xdes page，一个xdes
 
 ### 2.0、segment 和 inode
 
-大神Jeremy Cole[博客文章](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/) File segments and inodes 小节中描述了 segment和inode之间的关系：
+大神Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)中File segments and inodes 小节中描述了 segment和inode之间的关系：
 
 原文：
 
@@ -47,13 +47,11 @@ InnoDB用专门的页来存储xdes entry，这种页叫做xdes page，一个xdes
 
 > 文件segment和inode可能是InnoDB术语和文档最晦涩的地方。InnoDB中的INODE条目仅仅描述了一个文件段(通常称为FSEG)。
 
-用大白话就是说：在InnoDB语境下，segment和inode表达同一个意思，可以互换使用。
-
-我的理解：
+这是说：在InnoDB语境下，segment和inode表达同一个意思，可以互换使用。
 
 在InnoDB源码中主要使用`inode`，在文档中在主要使用`segment`。
 
-说起inode需要想一下到底是什么，而segment则比较直观，为了便于理解，下文主要使用segment，把inode都替换成了segment。
+说说我的感受：一说起inode，我需要想一下到底是在说什么，而一说起segment，我就立刻知道在说一个索引的叶子段、非叶子段或Undo段，和InnoDB的核心议题直接关联起来了。所以，为了(我)便于理解，下文主要使用segment，把inode都替换成了segment。
 
 具体就是：
 
@@ -87,13 +85,13 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 ## 4、InnoDB表空间布局全貌
 
-根据上面的知识，来看看Jeremy Cole在[The basics of InnoDB space file layout](https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/)一文 Space files 小节中画的file space概览图，就很容易理解了。
+来看看Jeremy Cole在[The basics of InnoDB space file layout](https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/)一文 Space files 小节中画的space file概览图：
 
 <img src="https://gongpengjun.com/imgs/innodb/Space_File_Overview.png" width="100%" alt="Space File Overview">
 
-按照我们的术语，理解如下图：
+按照我的术语，理解如下图：
 
-<img src="https://gongpengjun.com/imgs/innodb/Space_File_Overview_understand.png" width="100%" alt="Space File Overview with Comments">
+<img src="https://gongpengjun.com/imgs/innodb/Space_File_Overview_with_comments.png" width="100%" alt="Space File Overview with Comments">
 
 一个ibd文件可能几十上百GB，甚至几TB，最大可以达到64TiB。InnoDB将这个大文件逻辑上划分为每256MiB一组，每组的第一个页是专门存放xdes entry的XDES Page，正好可以管理本组256MiB的空间。其中ibd文件的第一个页(页号为0)还包含tablespace的元信息，所以这个xdes page也叫做File Space(FSP_HDR) Page。
 
@@ -111,9 +109,13 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 ## 5、索引index的物理布局全貌
 
-基于以上所以的理解，再来看MySQL官方博客引用的Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)一文最后画的一个InnoDB索引文件的全景图，就很容易理解了。
+再来看MySQL官方博客引用的Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)一文最后画的一个InnoDB索引文件的全景图：
 
 <img src="https://gongpengjun.com/imgs/innodb/jeremycole_innodb_segment_and_extent.jpeg" width="100%" alt="Index File Segment Structure">
+
+按照我的术语，理解如下图：
+
+<img src="https://gongpengjun.com/imgs/innodb/jeremycole_innodb_segment_and_extent_comment.jpeg" width="100%" alt="Index File Segment Structure with Comments">
 
 其中：
 
