@@ -123,7 +123,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 - Page 3 (INDEX) 是B+树的根节点页面，里面存有指向Leaf Segment Entry和Internal Segment Entry的FSEG Header结构。
 - Page 2(INODE) 是Segment Page，专门存放segment entry，所以FSEG Header里的指针指向Page 2里的segment entry
-  -  segment entry即inode entry（图中简写为inode），inode这是个非常晦涩的用法，在图中其实就是segment entry的含义。
+  -  segment entry即inode entry（图中简写为inode），这里inode是个非常晦涩的用法，在图中其实就是segment entry的含义。
 
 - 每个segment entry里面包含着32个碎片页（Frag Array）和三个xdes链表（Free  List、Not Full  List、Full List），
   - 碎片页数组Frag Array直接指向大小为16KiB的页面
