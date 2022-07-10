@@ -133,7 +133,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 ## 6、表空间tablespace的逻辑布局全貌
 
-看懂了IBD文件的物理布局和索引Index的物理布局，再来看经常见到的表空间tablespace的逻辑布局，心中就有了然了。
+看懂了IBD文件的物理布局和索引Index的物理布局，再来看经常见到的表空间tablespace的逻辑布局，心中就了然了。
 
 <img src="https://gongpengjun.com/imgs/innodb/innodb_tablespace_logic_layout.jpeg" width="100%" alt="Tablespace Logic Layout">
 
