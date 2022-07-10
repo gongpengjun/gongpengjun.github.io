@@ -9,13 +9,13 @@ MySQL中最常用的存储引擎是InnoDB，存储引擎最核心的任务是把
 
 - - -
 
-## 0、页 page
+## 1、页 page
 
 磁盘是块存储设备，为了最大化磁盘的访问速度，InnoDB按照页为最小单位来读写硬盘，按最常见配置，一个页是16KiB。
 
-## 1、区 extent
+## 2、区 extent
 
-### 1.1、extent 和 xdes entry
+### 2.1、extent 和 xdes entry
 
 一个extent是(页号)连续的64个页，extent的元数据是extent descriptor(简称xdes entry)，一个xdes entry管理一个extent的64个页。
 
@@ -25,7 +25,7 @@ MySQL中最常用的存储引擎是InnoDB，存储引擎最核心的任务是把
 
 一个xdes entry (代码为`struct xdes_t` )占用40Byte，这些xdes entry存放在哪儿呢？
 
-### 1.2、xdes page 和 xdes entry 和 extent
+### 2.2、xdes page 和 xdes entry 和 extent
 
 InnoDB用专门的页来存储xdes entry，这种页叫做xdes page，一个xdes page可以存256个xdes entry（即管理256个extent）。
 
@@ -33,9 +33,9 @@ InnoDB用专门的页来存储xdes entry，这种页叫做xdes page，一个xdes
 
 <img src="https://gongpengjun.com/imgs/innodb/innodb_extent_page.svg" width="100%" alt="xdes entry">
 
-## 2、段 segment
+## 3、段 segment
 
-### 2.0、segment 和 inode
+### 3.0、segment 和 inode
 
 大神Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)中File segments and inodes 小节中描述了 segment和inode之间的关系：
 
@@ -61,7 +61,7 @@ segment page <=等价于=> inode page
 
 Tips：看源代码、官方文档、或者书籍、网上的博客文章，尝试进行上面的等价变换，就容易理解了。
 
-### 2.1、segment 和 segment entry
+### 3.1、segment 和 segment entry
 
 segment是一个逻辑上的概念，segment管理的空间也不要求连续。一个segment包括32个碎片页和三个extent的链表（FREE exent链表、NOT FULL extent链表、FULL extent链表）。segment的元数据是segment entry（实际代码中是inode entry）。
 
@@ -69,13 +69,13 @@ segment是一个逻辑上的概念，segment管理的空间也不要求连续。
 
 一个segment entry占用192Byte，这些segment entry存放在哪儿呢？
 
-### 2.2、segment page 和 segment entry 和 segment
+### 3.2、segment page 和 segment entry 和 segment
 
 InnoDB用专门的页来存储segment entry，这种页叫做segment page，一个segment page可以存85个segment entry（即管理85个segment）。
 
 <img src="https://gongpengjun.com/imgs/innodb/innodb_segment_inode_page.svg" width="100%" alt="segment page">
 
-## 3、索引index和段segment
+## 4、索引index和段segment
 
 InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一颗B+树，一个二级索引也是一颗B+树。
 
@@ -85,7 +85,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 <img src="https://gongpengjun.com/imgs/innodb/FSEG_Header.png" width="100%" alt="FSEG Header">
 
-## 4、InnoDB表空间布局全貌
+## 5、InnoDB表空间布局全貌
 
 来看看Jeremy Cole在[The basics of InnoDB space file layout](https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/)一文 Space files 小节中画的space file概览图：
 
@@ -109,7 +109,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 > InnoDB 的数据存储模型使用“空间”，在 MySQL 的上下文中通常称为“表空间”，有时在 InnoDB 本身中称为“文件空间”。
 
-## 5、索引index的物理布局全貌
+## 6、索引index的物理布局全貌
 
 再来看MySQL官方博客引用的Jeremy Cole在[Page management in InnoDB space files](https://blog.jcole.us/2013/01/04/page-management-in-innodb-space-files/)一文最后画的一个InnoDB索引文件的全景图：
 
@@ -133,7 +133,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
   - Page 16384：即第二个256MiB中的第一个页是纯粹存放xdes entry的xdes page
     - 页号16384即16KiB，说明该页前面有16KiB*16KiB=256MiB的空间
 
-## 6、表空间tablespace的逻辑布局全貌
+## 7、表空间tablespace的逻辑布局全貌
 
 看懂了IBD文件的物理布局和索引Index的物理布局，再来看经常见到的表空间tablespace的逻辑布局，心中就了然了。
 
@@ -141,7 +141,7 @@ InnoDB中数据就是索引，索引就是数据。一个聚簇索引就是一�
 
 这是一个由具象到抽象的提炼总结过程，提炼出的东西自然心中有数。我更擅长先具象，再抽象，因为这样没有疑问和悬念，心里踏实。
 
-## 7、参考
+## 8、参考
 
 - [InnoDB : Tablespace Space Management](https://dev.mysql.com/blog-archive/innodb-tablespace-space-management/)
 - [Extent Descriptor Page of InnoDB](https://dev.mysql.com/blog-archive/extent-descriptor-page-of-innodb/)
