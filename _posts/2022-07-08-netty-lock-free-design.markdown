@@ -69,7 +69,7 @@ Thread2用户对象obj1后，准备归还。
 
 ### 3.4、Thread1释放池化对象obj1 - scavenge→transfer
 
-Thread1访问自己Stack中的WeakOrderQueue链表，一次一个WeakOrderQueue节点的速度来释放其中的对象。
+Thread1遍历自己Stack中的WeakOrderQueue链表，转移每个WeakOrderQueue节点中的一个Link节点中的elements。
 
 - 首先Thread1通过其对应Stack中的head指针找到第一个Link节点
 - 然后从该Link的readIndex位置开始将Link的elements中的对象转全部移回Stack的elements数组中
