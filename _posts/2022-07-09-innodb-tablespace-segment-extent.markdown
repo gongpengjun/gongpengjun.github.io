@@ -59,6 +59,8 @@ segment entry <=等价于=> inode entry
 
 segment page <=等价于=> inode page
 
+Tips：看源代码、官方文档、或者书籍、网上的博客文章，尝试进行上面的等价变换，就容易理解了。
+
 ### 2.1、segment 和 segment entry
 
 segment是一个逻辑上的概念，segment管理的空间也不要求连续。一个segment包括32个碎片页和三个extent的链表（FREE exent链表、NOT FULL extent链表、FULL extent链表）。segment的元数据是segment entry（实际代码中是inode entry）。
