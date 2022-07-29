@@ -7,11 +7,12 @@ categories: Storage Redis
 
 Redis在字典扩容时会选择向上取整到2的次幂：
 
-```language:c
+```c
 /* This is the initial size of every hash table */
 #define DICT_HT_INITIAL_SIZE     4
+
 /* Our hash table capability is a power of two */
-static unsigned long _dictNextPower(unsigned long size) {
+unsigned long _dictNextPower(unsigned long size) {
     unsigned long i = DICT_HT_INITIAL_SIZE;
 
     if (size >= LONG_MAX) return LONG_MAX;
