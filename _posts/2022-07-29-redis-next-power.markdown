@@ -5,7 +5,7 @@ date:   2022-07-29 09:00:00
 categories: Storage Redis
 ---
 
-Redis在字典扩容时会选择向上取整到 2 的次幂。具体代码如下：
+Redis在字典扩容时会选择向上取整到2的次幂：
 
 ```language:c
 /* This is the initial size of every hash table */
@@ -23,7 +23,4 @@ static unsigned long _dictNextPower(unsigned long size) {
 }
 ```
 
-源码链接：https://github.com/redis/redis/blob/unstable/deps/hiredis/dict.c#L310
-
-更多解法：
-https://www.techiedelight.com/zh/round-next-highest-power-2/
+参考信息：[源码链接](https://github.com/redis/redis/blob/unstable/deps/hiredis/dict.c#L310)、[更多解法](https://www.techiedelight.com/zh/round-next-highest-power-2/)
