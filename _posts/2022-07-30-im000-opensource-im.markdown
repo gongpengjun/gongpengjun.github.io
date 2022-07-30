@@ -5,7 +5,7 @@ date: 2022-07-30 09:00:00
 categories: IM
 ---
 
-IM是一个历史悠久的应用，也是一个复杂的系统，业界有一些开源的IM实现，本文收集整理，加一点个人的解读。
+IM开源实现一览，重点关注技术栈。
 
 ### 1、MatterMost
 
@@ -13,13 +13,28 @@ IM是一个历史悠久的应用，也是一个复杂的系统，业界有一些
 - [GitHub](https://github.com/mattermost)：
   - [服务端](https://github.com/mattermost/mattermost-server)：Go语言单体应用，存储MySQL, 23.6K Stars
   - 客户端：
-    - [桌面端](https://github.com/mattermost/desktop)基于[Electron](http://electron.atom.io/)，支持Mac、Windows、Linux 1.7K Stars
-    - [移动端](https://github.com/mattermost/mattermost-mobile/tree/gekidou)基于React Native，支持iOS和Android 1.6K Stars
+    - [桌面端](https://github.com/mattermost/desktop)基于[Electron](http://electron.atom.io/)，JavaScript语言，支持Mac、Windows、Linux 1.7K Stars
+    - [移动端](https://github.com/mattermost/mattermost-mobile/tree/gekidou)基于React Native，JavaScript语言，支持iOS和Android 1.6K Stars
 - 商业模式：[专业版和企业版收费](https://mattermost.com/pricing/)，高级功能（如搜索）只在收费版提供。
 
-### 2、ToDo
+### 2、Matrix
 
+- [Matrix](https://matrix.org/): 对标Telegram的开源实现，去中心化的IM系统，技术上类似Git的分布式设计。
+  - 来自剑桥大学的人创立的[Matrix.org Foundation](https://matrix.org/foundation/) 2013年发起
+  - [Matrix Spec 1.0](https://matrix.org/blog/2019/06/11/introducing-matrix-1-0-and-the-matrix-org-foundation)：2019-06-11 Spec 1.0发布
+- [服务端](https://github.com/matrix-org/synapse)：分布式架构，homeserver使用Python 3/Twisted开发 9.7K Stars
 
+```
+client <----> homeserver <=====================> homeserver <----> client
+       https://somewhere.org/_matrix      https://elsewhere.net/_matrix
+```
+
+- 客户端
+  - [网页版客户端 - Element](https://github.com/vector-im/element-web/) 8.6K Stars
+    - [网页SDK](Matrix SDK for React Javascript)
+  - [桌面端](https://github.com/vector-im/element-desktop)：Element Web + Electron
+  - [iOS端](https://github.com/vector-im/element-ios)：Swift + ObjectiveC 1.4K Stars
+  - [Android端](https://github.com/vector-im/element-android)：Kotlin 2.2K Stars
 
 ### N、参考资料
 
