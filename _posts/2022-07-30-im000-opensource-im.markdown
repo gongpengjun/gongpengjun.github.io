@@ -9,14 +9,12 @@ IM是一个历史悠久的应用，也是一个复杂的系统，业界有一些
 
 ### 1、MatterMost
 
-Mattermost，对标Slack的开源实现，基于IM，瞄准协同办公场景。
-
-- 官网：https://mattermost.com/
-- GitHub：https://github.com/mattermost
-  - [服务端](https://github.com/mattermost/mattermost-server)：Go语言实现，单体应用，主要存储是MySQL
+- [Mattermost](https://mattermost.com/)：对标Slack的开源实现，基于IM，瞄准协同办公场景。
+- [GitHub](https://github.com/mattermost)：
+  - [服务端](https://github.com/mattermost/mattermost-server)：Go语言单体应用，存储MySQL, 23.6K Stars
   - 客户端：
-    - [桌面端](https://github.com/mattermost/desktop)基于[Electron](http://electron.atom.io/)实现，支持Mac、Windows、Linux平台
-    - [移动端](https://github.com/mattermost/mattermost-mobile/tree/gekidou)基于React Native实现，支持iOS和Android平台
+    - [桌面端](https://github.com/mattermost/desktop)基于[Electron](http://electron.atom.io/)，支持Mac、Windows、Linux 1.7K Stars
+    - [移动端](https://github.com/mattermost/mattermost-mobile/tree/gekidou)基于React Native，支持iOS和Android 1.6K Stars
 - 商业模式：[专业版和企业版收费](https://mattermost.com/pricing/)，高级功能（如搜索）只在收费版提供。
 
 ### 2、ToDo
