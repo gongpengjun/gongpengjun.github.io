@@ -38,7 +38,8 @@ client <----> homeserver <=====================> homeserver <----> client
 
 ### 3、Mars - [仅客户端]
 
-- [Mars](https://github.com/Tencent/mars)：腾讯微信团队开源跨平台客户端SDK，基于C/C++实现
+- [Mars](https://github.com/Tencent/mars)：腾讯微信团队开源跨平台客户端SDK，基于C/C++实现，16.3K Stars
+  - 支持Android、iOS、Mac、Windows
 - [服务端Sample](https://github.com/Tencent/mars/tree/master/samples/Server)：Python实现的服务端样例，用于体验Mars客户端Demo
 
 ### N、参考资料
