@@ -42,6 +42,30 @@ client <----> homeserver <=====================> homeserver <----> client
   - 支持Android、iOS、Mac、Windows
 - [服务端Sample](https://github.com/Tencent/mars/tree/master/samples/Server)：Python实现的服务端样例，用于体验Mars客户端Demo
 
+### 4、Turms
+
+- [Turms](https://github.com/turms-im/turms)：个人开发者，Java语言，号称支持10万到千万并发用户
+  - 存储：MongoDB、Redis
+  - Turms基于读扩散消息模型进行架构设计，源自商用即时通讯项目
+  - 支持推模式、拉模式与推拉模式
+  - [架构设计](https://turms-im.github.io/docs/for-developers/architecture.html)
+  - [可观测性设计](https://turms-im.github.io/docs/for-developers/observability.html)
+
+### 5、Wildfire
+
+- [Wildfire](https://github.com/wildfirechat)：创业公司，开源IM，基于Java语言，
+  - 存储：MySQL
+  - [支持单机百万链接](https://github.com/wildfirechat/C1000K_Test)
+  - [野火IM的商业逻辑](https://docs.wildfirechat.cn/blogs/%E9%87%8E%E7%81%ABIM%E7%9A%84%E5%95%86%E4%B8%9A%E9%80%BB%E8%BE%91.html)
+- 客户端使用微信[mars](https://github.com/tencent/mars)连接库
+
+### 6、OpenIMSDK
+
+- [OpenIMSDK](https://github.com/OpenIMSDK)：创业公司，Go语言实现
+- OpenIM是由IM技术专家打造的**开源**的即时通讯组件。OpenIM包括IM服务端和客户端SDK
+- 存储：MySQL、MongoDB、Redis
+
 ### N、参考资料
 
 - [Google Doc - Digital Communications Protocols - IM一览表](https://docs.google.com/spreadsheets/d/1-UlA4-tslROBDS9IqHalWVztqZo7uxlCeKPQ-8uoFOU/edit#gid=0)
+- [IM开源即时通讯软件收集](https://blog.csdn.net/libaineu2004/article/details/44026069)
