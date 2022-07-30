@@ -36,6 +36,11 @@ client <----> homeserver <=====================> homeserver <----> client
   - [iOS端](https://github.com/vector-im/element-ios)：Swift + ObjectiveC 1.4K Stars
   - [Android端](https://github.com/vector-im/element-android)：Kotlin 2.2K Stars
 
+### 3、Mars - [仅客户端]
+
+- [Mars](https://github.com/Tencent/mars)：腾讯微信团队开源跨平台客户端SDK，基于C/C++实现
+- [服务端Sample](https://github.com/Tencent/mars/tree/master/samples/Server)：Python实现的服务端样例，用于体验Mars客户端Demo
+
 ### N、参考资料
 
 - [Google Doc - Digital Communications Protocols - IM一览表](https://docs.google.com/spreadsheets/d/1-UlA4-tslROBDS9IqHalWVztqZo7uxlCeKPQ-8uoFOU/edit#gid=0)
