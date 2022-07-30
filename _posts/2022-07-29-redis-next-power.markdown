@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Redis算法 - 向上取整到 2 的次幂
-date:   2022-07-29 09:00:00
+title: 小算法 - 2的次幂
+date: 2022-07-29 09:00:00
 categories: Storage Redis
 ---
 
