@@ -6,3 +6,5 @@ categories: CrossPlatform GUI
 ---
 
 内容较多，请点击 [Weex源码解读和工作原理分析](http://gongpengjun.com/weex-code-analysis/) 阅读。
+
+\## Stargazers over time [![Stargazers over time](https://starchart.cc/gongpengjun/weex-code-analysis.svg)](https://starchart.cc/gongpengjun/weex-code-analysis) 
