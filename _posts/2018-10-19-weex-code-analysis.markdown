@@ -9,6 +9,6 @@ categories: CrossPlatform GUI
 
 
 
-如果对你帮助，求点个小星星⭐️
+如果对你帮助，求前往[Github项目主页](https://github.com/gongpengjun/weex-code-analysis)点个小星星⭐️
 
  [![Stargazers over time](https://starchart.cc/gongpengjun/weex-code-analysis.svg)](https://starchart.cc/gongpengjun/weex-code-analysis) 
