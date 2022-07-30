@@ -57,7 +57,15 @@ client <----> homeserver <=====================> homeserver <----> client
   - 存储：MySQL
   - [支持单机百万链接](https://github.com/wildfirechat/C1000K_Test)
   - [野火IM的商业逻辑](https://docs.wildfirechat.cn/blogs/%E9%87%8E%E7%81%ABIM%E7%9A%84%E5%95%86%E4%B8%9A%E9%80%BB%E8%BE%91.html)
+  - 移动端全部免费
+  - 对PC/Web端收费
+  - 基于MQTT二次开发的类似于邮件的私有协议，数据使用Protobuf序列化
+  - 团队核心成员从事IM行业10年以上
+  - 只提供SDK，不提供完整产品
 - 客户端使用微信[mars](https://github.com/tencent/mars)连接库
+- 服务端
+  - 一个是社区版，是开源免费单机部署
+  - 一个是专业版，是闭源收费集群部署
 
 ### 6、OpenIMSDK
 
