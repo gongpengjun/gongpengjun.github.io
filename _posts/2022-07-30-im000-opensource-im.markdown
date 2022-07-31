@@ -17,7 +17,18 @@ IM开源实现一览，重点关注技术栈。
     - [移动端](https://github.com/mattermost/mattermost-mobile/tree/gekidou)基于React Native，JavaScript语言，支持iOS和Android 1.6K Stars
 - 商业模式：[专业版和企业版收费](https://mattermost.com/pricing/)，高级功能（如搜索）只在收费版提供。
 
-### 2、Matrix
+### 2、Signal
+
+- [Signal](https://signal.org/)：对标Telegram的开源实现。
+- [GitHub](https://github.com/signalapp)：
+  - [服务端](https://github.com/signalapp/Signal-Server)：Java语言，存储?， 7.8K Stars
+    - [Mock-Signal-Server](https://github.com/signalapp/Mock-Signal-Server)：TypeScript语言，仅用于桌面端集成测试 7 Stars
+  - 客户端：
+    - [桌面端](https://github.com/signalapp/Signal-Desktop)：TypeScript语言，支持Mac、Windows、Linux 12.6K Stars
+    - [iOS端](https://github.com/signalapp/Signal-iOS)，Swift语言 9.4K Stars
+    - [Android端](https://github.com/signalapp/Signal-Android)，Java语言 22.6K Stars
+
+### 3、Matrix
 
 - [Matrix](https://matrix.org/): 对标Telegram的开源实现，去中心化的IM系统，技术上类似Git的分布式设计。
   - 来自剑桥大学的人创立的[Matrix.org Foundation](https://matrix.org/foundation/) 2013年发起
@@ -36,7 +47,9 @@ client <----> homeserver <=====================> homeserver <----> client
   - [iOS端](https://github.com/vector-im/element-ios)：Swift + ObjectiveC 1.4K Stars
   - [Android端](https://github.com/vector-im/element-android)：Kotlin 2.2K Stars
 
-### 3、Mars - [仅客户端]
+
+
+### 4、Mars - [仅客户端]
 
 - [Mars](https://github.com/Tencent/mars)：腾讯微信团队开源跨平台客户端SDK，基于C/C++实现，16.3K Stars
   - 支持Android、iOS、Mac、Windows
