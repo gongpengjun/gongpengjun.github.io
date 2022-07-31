@@ -21,7 +21,7 @@ IM开源实现一览，重点关注技术栈。
 
 - [Signal](https://signal.org/)：对标Telegram的开源实现。
 - [GitHub](https://github.com/signalapp)：
-  - [服务端](https://github.com/signalapp/Signal-Server)：Java语言，存储?， 7.8K Stars
+  - [服务端](https://github.com/signalapp/Signal-Server)：Java语言，存储[DynamoDB](https://aws.amazon.com/cn/dynamodb/)， 7.8K Stars
     - [Mock-Signal-Server](https://github.com/signalapp/Mock-Signal-Server)：TypeScript语言，仅用于桌面端集成测试 7 Stars
   - 客户端：
     - [桌面端](https://github.com/signalapp/Signal-Desktop)：TypeScript语言，支持Mac、Windows、Linux 12.6K Stars
