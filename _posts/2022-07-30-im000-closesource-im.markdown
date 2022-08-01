@@ -76,3 +76,4 @@ categories: IM
 ### N、参考资料
 
 - [2021全球十大超级应用: 国际互联网下半场开启](http://vr.sina.com.cn/2021-06-05/doc-ikqciyzi7834371.shtml)
+- [Best Instant Messaging Apps for Business](https://www.brosix.com/blog/instant-messaging-apps/)
