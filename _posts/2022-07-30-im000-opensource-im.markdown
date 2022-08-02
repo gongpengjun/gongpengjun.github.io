@@ -18,7 +18,7 @@ IM开源实现一览，重点关注技术栈。
     - 23.6K Stars
   - 客户端：
     - [桌面端](https://github.com/mattermost/desktop)
-      - 框架：[Electron](http://electron.atom.io/)
+      - 框架：Electron
       - 语言：JavaScript
       - 平台：Mac、Windows、Linux
       - 1.7K Stars
@@ -27,7 +27,7 @@ IM开源实现一览，重点关注技术栈。
       - 语言：JavaScript
       - 平台：iOS、Android
       - 1.6K Stars
-- 商业模式：[专业版和企业版收费](https://mattermost.com/pricing/)，高级功能（如搜索）只在收费版提供。
+- 商业模式：专业版和企业版收费，搜索等功能需付费。
 
 ### 2、Signal
 
@@ -37,7 +37,6 @@ IM开源实现一览，重点关注技术栈。
     - 语言：Java
     - 存储：[DynamoDB](https://aws.amazon.com/cn/dynamodb/)
     - 7.8K Stars
-    - [Mock-Signal-Server](https://github.com/signalapp/Mock-Signal-Server)：TypeScript，桌面端集成测试
   - 客户端：
     - [桌面端](https://github.com/signalapp/Signal-Desktop)：
       - 语言：TypeScript
@@ -49,11 +48,14 @@ IM开源实现一览，重点关注技术栈。
     - [Android端](https://github.com/signalapp/Signal-Android)
       - 语言：Java
       - 22.6K Stars
+  - [Mock-Signal-Server](https://github.com/signalapp/Mock-Signal-Server)
+    - 语言：TypeScript
+    - 用途：桌面端集成测试
 
 ### 3、Matrix
 
-- [Matrix](https://matrix.org/): 去中心化的IM系统，架构类似Git的分布式设计
-  - 来自剑桥大学的人创立的[Matrix.org Foundation](https://matrix.org/foundation/) 2013年发起
+- [Matrix](https://matrix.org/): 去中心化的IM系统，类Git分布式设计
+  - [Matrix.org Foundation](https://matrix.org/foundation/) 2013年发起
   - [Matrix Spec 1.0](https://matrix.org/blog/2019/06/11/introducing-matrix-1-0-and-the-matrix-org-foundation)：2019-06-11 Spec 1.0发布
 - [服务端](https://github.com/matrix-org/synapse)：
   - 语言：Python 3/Twisted
@@ -66,8 +68,10 @@ client <----> homeserver <=====================> homeserver <----> client
 ```
 
 - 客户端
-  - [网页版客户端 - Element](https://github.com/vector-im/element-web/) 8.6K Stars
+  - [网页版](https://github.com/vector-im/element-web/)
     - [网页SDK](Matrix SDK for React Javascript)
+    - 语言：JavaScript
+    - 8.6K Stars
   - [桌面端](https://github.com/vector-im/element-desktop)：
     - 框架：Electron
     - 内核：Element 网页版
