@@ -43,6 +43,8 @@ categories: IM
 - 客户端UI
   - 不打算出带UI的客户端Demo
 
+- 不支持离线推送
+
 ### 2、Wildfire
 
 - [Wildfire](https://github.com/wildfirechat)：创业公司，开源IM
@@ -63,5 +65,5 @@ categories: IM
 ### 3、OpenIMSDK
 
 - [OpenIMSDK](https://github.com/OpenIMSDK)：创业公司，Go语言实现
-- OpenIM是由IM技术专家打造的**开源**的即时通讯组件。OpenIM包括IM服务端和客户端SDK
+- OpenIM包括IM服务端和客户端SDK
 - 存储：MySQL、MongoDB、Redis
