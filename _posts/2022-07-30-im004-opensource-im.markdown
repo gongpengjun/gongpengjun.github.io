@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 开源IM一览
+title: 全球开源IM一览
 date: 2022-07-30 09:00:00
 categories: IM
 ---
