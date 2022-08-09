@@ -142,11 +142,33 @@ client <----> homeserver <=====================> homeserver <----> client
   - 语言：C/C++
   - 平台：Android、iOS、Mac、Windows
   - 16.3K Stars
-  
 - [服务端Sample](https://github.com/Tencent/mars/tree/master/samples/Server)：
   - 语言：Python
   - 用于体验Mars客户端Demo
 
+### 7、Let's Chat
+
+- [Let's Chat](http://sdelements.github.io/lets-chat/)：Self-hosted chat app for small teams
+- [服务端](https://github.com/sdelements/lets-chat)
+  - 语言：JavaScript
+  - 存储：MongoDB
+  - 9.6K Stars
+### 8、ZULIP
+- [Zulip](https://zulip.com/): 组合实时聊天和电子邮件的特点
+  - [Why Zulip?](https://zulip.com/why-zulip/)
+- [GitHub](https://github.com/zulip)：
+  - [服务端](https://github.com/zulip/zulip)：
+    - 语言：Python
+    - 16.2K 
+  - [移动端](https://github.com/zulip/zulip-mobile)：
+    - 语言：JavaScript
+    - 1.1K Stars
+  - [桌面端](https://github.com/zulip/zulip-desktop)：
+    - 语言：TypeScript
+    - 660 Stars
+  - [命令行](https://github.com/zulip/zulip-terminal)：
+    - 语言：Python
+    - 416 Stars
 
 ### N、参考资料
 
