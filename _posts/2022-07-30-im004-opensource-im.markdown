@@ -162,9 +162,11 @@ client <----> homeserver <=====================> homeserver <----> client
     - 16.2K 
   - [移动端](https://github.com/zulip/zulip-mobile)：
     - 语言：JavaScript
+    - 框架：React Native
     - 1.1K Stars
   - [桌面端](https://github.com/zulip/zulip-desktop)：
     - 语言：TypeScript
+    - 框架：Electron
     - 660 Stars
   - [命令行](https://github.com/zulip/zulip-terminal)：
     - 语言：Python
