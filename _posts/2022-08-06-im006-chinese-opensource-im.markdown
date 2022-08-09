@@ -61,11 +61,18 @@ categories: IM
 
 ### 3、OpenIMSDK
 
-- [OpenIMSDK](https://doc.rentsoft.cn/#/)：开源创业公司
+- [OpenIMSDK](https://www.rentsoft.cn/)：开源创业公司
+  - 团队专栏：https://cloud.tencent.com/developer/column/92952
 - [服务端](https://github.com/OpenIMSDK/Open-IM-Server)
   - 语言：Go
   - 存储：MySQL、MongoDB、Redis、MinIO
+    - Redis 每一条消息对于接收者和发送者都会产生一个唯一的递增的消息序列号
+    - MongoDB存储历史消息，用于用户直接拉取消息
+    - MySQL存储全量历史消息
+    - MinIO存储文件
   - 网络：Netty
+  - [架构设计](https://cloud.tencent.com/developer/article/1853605)：
+    - 写扩散模型
 - 客户端
   - [Open-IM-SDK-Core](https://github.com/OpenIMSDK/Open-IM-SDK-Core)：Go语言实现的跨端SDK
   - iOS、Android、Flutter、Web、Uniapp版封装SDK

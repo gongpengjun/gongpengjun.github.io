@@ -72,6 +72,12 @@ categories: IM
 - WhatsApp早期是一款主打替代SMS短信的通讯应用
 - 2013年被Facebook公司以190亿美元收购
 - 截至2020年2月，WhatsApp全球用户数量约22亿
+- 设计文档
+  - [WhatsApp-Engineering Inside-1](https://medium.com/codingurukul/whatsapp-engineering-inside-1-1ef4845ff784)
+  - [WhatsApp-Engineering Inside-2](https://medium.com/codingurukul/whatsapp-engineering-inside-2-bdd1ec354748)
+  - 语言：Erlang
+  - ***10 million connection on a single server***
+
 
 ### N、参考资料
 
