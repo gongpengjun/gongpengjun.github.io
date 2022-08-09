@@ -74,6 +74,8 @@ IM开源实现一览，重点关注技术栈。
       - 语言：JavaScript
       - 平台：Mac、Windows、Linux
       - 220 Stars
+    - [命令行版](https://github.com/tinode/chat/tree/master/tn-cli)
+      - 语言：Python
 
 ### 4、Matrix
 
