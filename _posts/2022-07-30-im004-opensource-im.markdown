@@ -172,6 +172,13 @@ client <----> homeserver <=====================> homeserver <----> client
     - 语言：Python
     - 416 Stars
 
+### 9、LAN messenger
+- [LAN messenger](https://lanmessenger.github.io/)
+- [GitHub](https://github.com/lanmessenger)
+  - [LAN messenger](https://github.com/lanmessenger/lanmessenger)
+    - 语言：C++
+    - 185 Stars
+
 ### N、参考资料
 
 - [Google Doc - Digital Communications Protocols - IM一览表](https://docs.google.com/spreadsheets/d/1-UlA4-tslROBDS9IqHalWVztqZo7uxlCeKPQ-8uoFOU/edit#gid=0)
