@@ -45,28 +45,15 @@ categories: IM
 
 - 不支持离线推送
 
-### 2、Wildfire
-
-- [Wildfire](https://wildfirechat.cn/)：开源创业公司
-- [服务端](https://github.com/wildfirechat/im-server)
-  - 语言：Java
-  - 存储：MySQL
-  - 移动端全部免费，PC/Web端收费
-  - 基于MQTT二次开发的类似于邮件的私有协议，数据使用Protobuf序列化
-  - 只提供SDK，不提供完整产品
-- 客户端使用微信[mars](https://github.com/tencent/mars)连接库
-- 服务端
-  - 一个是社区版，是开源免费单机部署
-  - 一个是专业版，是闭源收费集群部署
 
 ### 3、OpenIMSDK
 
-- [OpenIMSDK](https://www.rentsoft.cn/)：开源创业公司
+- [OpenIMSDK](https://www.rentsoft.cn/)：IM创业公司
   - 团队专栏：https://cloud.tencent.com/developer/column/92952
 - [服务端](https://github.com/OpenIMSDK/Open-IM-Server)
   - 语言：Go
   - 存储：MySQL、MongoDB、Redis、MinIO
-    - Redis 每一条消息对于接收者和发送者都会产生一个唯一的递增的消息序列号
+    - Redis 用于消息序列号生成
     - MongoDB存储历史消息，用于用户直接拉取消息
     - MySQL存储全量历史消息
     - MinIO存储文件
@@ -76,3 +63,18 @@ categories: IM
 - 客户端
   - [Open-IM-SDK-Core](https://github.com/OpenIMSDK/Open-IM-SDK-Core)：Go语言实现的跨端SDK
   - iOS、Android、Flutter、Web、Uniapp版封装SDK
+
+### 4、Wildfire
+
+- [Wildfire](https://wildfirechat.cn/)：IM创业公司
+- [GitHub](https://github.com/wildfirechat)
+  - [服务端](https://github.com/wildfirechat/im-server)
+    - 语言：Java
+    - 存储：MySQL
+    - 社区版，开源免费单机部署
+    - 专业版，闭源收费集群部署
+  - 移动端
+    - 客户端使用微信[mars](https://github.com/tencent/mars)连接库
+    - [iOS端](https://github.com/wildfirechat/ios-chat)
+    - [Android端](https://github.com/wildfirechat/android-chat)
+    - [桌面端](https://github.com/wildfirechat/vue-pc-chat)
