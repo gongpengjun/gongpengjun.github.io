@@ -30,13 +30,13 @@ categories: IM
   - [架构设计](https://turms-im.github.io/docs/for-developers/architecture.html)
     - 读扩散消息模型
     - 追求高性能，牺牲功能丰富性
-  - 面向大用户量的C端应用场景（不是面向B端企业通讯场景）
+    - 面向大用户量的C端应用场景（非B端企业协作）
     - 支持推模式、拉模式与推拉模式
-    - 支持敏感词过滤（基于双数组Trie的AC自动机算法实现）
+    - 支持敏感词过滤（双数组Trie的AC自动机算法）
     - 支持消息冷热分离存储
     - [可观测性设计](https://turms-im.github.io/docs/for-developers/observability.html)
 - 客户端
-  - [turms-client-js](https://github.com/turms-im/turms/tree/develop/turms-client-js)：JS客户端SDK，支持浏览器标签页共享WebSocket连接
+  - [turms-client-js](https://github.com/turms-im/turms/tree/develop/turms-client-js)：JS客户端SDK，多标签页共享WebSocket连接
   - [turms-client-kotlin](https://github.com/turms-im/turms/tree/develop/turms-client-kotlin)：Android客户端SDK
   - [turms-client-swift](https://github.com/turms-im/turms/tree/develop/turms-client-swift)：iOS客户端SDK
   - [turms-client-dart](https://github.com/turms-im/turms/tree/develop/turms-client-dart)：Flutter客户端SDK
@@ -54,7 +54,7 @@ categories: IM
   - 语言：Go
   - 存储：MySQL、MongoDB、Redis、MinIO
     - Redis 用于消息序列号生成
-    - MongoDB存储历史消息，用于用户直接拉取消息
+    - MongoDB缓存最近消息，直接拉取消息
     - MySQL存储全量历史消息
     - MinIO存储文件
   - 网络：Netty
@@ -62,7 +62,7 @@ categories: IM
     - 写扩散模型
 - 客户端
   - [Open-IM-SDK-Core](https://github.com/OpenIMSDK/Open-IM-SDK-Core)：Go语言实现的跨端SDK
-  - iOS、Android、Flutter、Web、Uniapp版封装SDK
+  - iOS、Android、Flutter、Web、Uniapp封装
 
 ### 4、Wildfire
 
