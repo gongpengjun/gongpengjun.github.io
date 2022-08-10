@@ -49,7 +49,7 @@ categories: IM
 ### 3、OpenIMSDK
 
 - [OpenIMSDK](https://www.rentsoft.cn/)：IM创业公司
-  - 团队专栏：https://cloud.tencent.com/developer/column/92952
+  - [团队专栏](https://cloud.tencent.com/developer/column/92952)
 - [服务端](https://github.com/OpenIMSDK/Open-IM-Server)
   - 语言：Go
   - 存储：MySQL、MongoDB、Redis、MinIO
