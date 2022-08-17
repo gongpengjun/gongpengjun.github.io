@@ -9,14 +9,14 @@ IM是一个持续迭代的系统，很容易同时并存多个版本，而服务
 
 ## IM 客户端版本分布和IM系统拓扑图
 
-IM是端到端系统，也是以IM Server为中心的星型系统，一个IM系统的客户端不同版本的分布和服务端的形成的拓扑图如下：
+IM是端到端系统，也是以IM Server为中心的星型系统，一个IM系统的客户端不同版本的分布和服务端形成的拓扑图如下：
 
-<img src="https://gongpengjun.com/imgs/im707/im007_client_version_distribution.svg" width="100%" alt="IM007-IM Client Version Distribution">
+<img src="https://gongpengjun.com/imgs/im707/im007_client_version_distribution.svg" width="60%" alt="IM007-IM Client Version Distribution">
 
-- 较老的客户端版本V1有一定量的人在用，因为懒或者客观原因不想升级；
+- V1: 较老的客户端版本有一定量的人在用，因为懒不想升级或者客观原因无法升级；
 
-- 最近发布的版本V2有比较多的人在用，是主力版本；
-- 正在研发的版本V3是Next Big Thing，拥有“Killer Feature”，有很多Breakthrough，也有很多breaking chanages
+- V2: 最近发布的版本有比较多的人在用，是主力版本；
+- V3: 正在研发的版本是Next Big Thing，拥有“Killer Feature”，有很多Breakthrough，也有很多breaking chanages
   - 下一个版本要搞个大事情
   - 拥有杀手级功能
   - 有很多突破
@@ -96,3 +96,4 @@ IM系统有长连接通道，为了优化HTTP，往往会通过**短转长**方�
 ## 求指点
 
 关于IM或者长期维护的App的兼容性建设，你有什么好的建议或者方案呢？求指点。可以加我微信gongpengjun或者给我发邮件frank.gongpengjun at gmail.com
+
