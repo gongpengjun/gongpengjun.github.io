@@ -20,7 +20,7 @@ IM是端到端系统，也是以IM Server为中心的星型系统，一个IM系�
   - 下一个版本要搞个大事情 Next Big Thing
   - 拥有杀手级功能 Killer Feature
   - 有很多突破 Breakthrough
-  - 自然也有很多不兼容性改变 breaking chanages
+  - 自然也有很多不兼容性改变 ground breaking changes
 
 
 
@@ -91,6 +91,27 @@ IM系统有长连接通道，为了优化HTTP，往往会通过**短转长**方�
 
 在短转长场景下，短连接已经传了一遍platform和version，长连接SDK也会再传一遍，从业务角度，应该用短链传的，这样业务服务就不用区分请求来自短链还是长链。
 
+## 参考资料
+
+- [语义化版本 2.0.0](https://semver.org/lang/zh-CN/)
+  - [语义化版本号检查正则表达式 1](https://regex101.com/r/Ly7O1x/3/)
+  - [语义化版本号检查正则表达式 2](https://regex101.com/r/vkijKf/1/)
+- [What Is a Version Number and Why Is It Used?](https://www.lifewire.com/version-number-2626043)
+- Apple iOS and OSX [Technical Note TN2420 Version Numbers and Build Numbers](https://developer.apple.com/library/archive/technotes/tn2420/_index.html)
+  - [解读](https://stackoverflow.com/a/38009895/328435)
+  - Version (**CFBundleShortVersionString**) - App Store使用
+  - Build number (**CFBundleVersion**) - App Store使用
+- Google Android [Version your app](https://developer.android.com/studio/publish/versioning?hl=zh-cn#kts)
+  - [解读](https://dev.mi.com/docs/appsmarket/operation_docs/versionCode&versionName/)
+  - `versionName` - 一个字符串，用作向用户显示的版本号。
+  - `versionCode` - 一个正整数，用作内部版本号，用于程序版本比较，应用市场使用。
+  
+- YouTube [API Design Backward and Forward Compatible APIs](https://www.youtube.com/watch?v=EpC6s2tisNY)
+  - [文字版](https://amasucci.com/posts/api-backwards-compatibility/)
+  - [代码示例](https://github.com/outofdevops/api-design)
+- [Backward vs. Forward Compatibility](https://stevenheidel.medium.com/backward-vs-forward-compatibility-9c03c3db15c9)
+- [软件的「向前兼容」和「向后兼容」如何区分？](https://www.zhihu.com/question/47239021/answer/683239665)
+  - 「向前进」(forward)指未来，「向后退」(backward)指过去
 
 
 ## 求指点
