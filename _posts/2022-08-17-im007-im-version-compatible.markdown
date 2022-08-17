@@ -11,7 +11,7 @@ IM是一个持续迭代的系统，很容易同时并存多个版本，而服务
 
 IM是端到端系统，也是以IM Server为中心的星型系统，一个IM系统的客户端不同版本的分布和服务端形成的拓扑图如下：
 
-<img src="https://gongpengjun.com/imgs/im707/im007_client_version_distribution.svg" width="60%" alt="IM007-IM Client Version Distribution">
+<img src="https://gongpengjun.com/imgs/im707/im007_client_version_distribution.svg" width="100%" alt="IM007-IM Client Version Distribution">
 
 - V1: 较老的客户端版本有一定量的人在用，因为懒不想升级或者客观原因无法升级；
 
@@ -67,8 +67,8 @@ IM是端到端系统，也是以IM Server为中心的星型系统，一个IM系�
 
 ```shell
 curl "https://{domain}/api/v1/xxx" \
-	-H "UserAgent: ... platform/ios, version/8.0.25 ..." \
-	-H "traceid: 0ad1348f1403169275002100356696"
+ -H "UserAgent: platform/ios, version/8.0.25" \
+ -H "traceid: 0ad1348f1403169275002100356696"
 ```
 
 一般来说，客户端的HTTP网络库都会开放UserAgent的修改接口，所以复用UserAgent比较容易实现。
