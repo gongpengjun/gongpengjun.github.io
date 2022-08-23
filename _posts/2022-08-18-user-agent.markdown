@@ -1,41 +1,79 @@
 ---
 layout: post
-title: UserAgent的坑
+title: UserAgent
 date: 2022-08-18 09:00:00
-categories: API
+categories: HTTP
 ---
 
-关于User-Agent，人尽皆知。但是我知之甚少，于是Google并整理一二。
+关于User-Agent（简称UA），最近做了一些调研，总结一些常识。
 
-### User-Agent的历史
+### UA的历史
 
+[RFC9110](https://www.rfc-editor.org/rfc/rfc9110#section-3.5)中定义了user agent，特别说明不止浏览器，爬虫、命令行程序都是user agent。
 
+[RFC9110](https://www.rfc-editor.org/rfc/rfc9110#section-10.1.5)中定义了 User-Agent HTTP请求头字段的格式和内容。user agent发送每个HTTP请求时都应该携带User-Agent字段。
 
-### User-Agent的用途
+### UA的用途
 
-- 统计分析：网络分析工具
+- 统计分析：商业广告公司通过统计分析UA来跟踪用户的行为，然后进行个性化推荐。
 - 识别爬虫：网站识别爬虫来屏蔽爬虫的爬取；爬虫伪装自己来爬取。
 - 浏览器兼容：网站根据UA判断浏览器的能力并返回适合的内容格式。
 - 浏览器不兼容：微软的网站针对Firefox特意不兼容，将Firefox的UA改为IE就一切正常了。
 
-### User-Agent的弊病
+### UA解析
 
-- 暴露用户隐私
-
-### User-Agent的篡改
+一句话总结：UA解析不难但是很难保证100%可靠。
 
 
 
-### User-Agent的解析
+UA检测看起来简单，实际上很难。
+
+> Using the user agent to detect the browser looks simple, but doing it well is, in fact, a very hard problem. 
+>
+> 使用UA检测浏览器看起来很简单，但是做得很好，实际上是一个非常困难的问题。
+
+UA代理字符串不同部分格式不统一，解析起来tricky棘手
+
+> As there is no uniformity of the different part of the user agent string, this is the tricky part.
+>
+> 由于用户代理字串的不同部分缺乏统一性，这是一个较难对付的问题。
+
+出现新的设备/浏览器时必须进行调研是否需要修改脚本（正则表达）
+
+> A technological survey must be in place to adapt the script when new browser versions are coming out.
+>
+> 当新的浏览器版本发布的时候，必须进行一次技术调研，看是否需要和怎么修改UA解析脚本以适应新的浏览器。
+
+推荐方法：优先使用功能侦测（Feature Detect），最后没办法时才fallback到UA侦测
+
+> Mobile device detection
+>
+> Use Navigator.maxTouchPoints to detect if the user's device has a touchscreen. Then, default back to checking the user agent screen only if (!("maxTouchPoints" in navigator)) { /*Code here*/}. 
+
+<img src="https://gongpengjun.com/imgs/UA_hasTouchScreen.png" width="100%" alt="Mobile device detection">
+
+UA解析只在是在没有办法时当做fallback的手段。
 
 
 
-### User-Agent的未来
+UA解析开源库 [ua-parser](https://github.com/ua-parser)
 
+- https://github.com/ua-parser/uap-core
+- https://github.com/ua-parser/uap-java 
+- ...
 
+ua-parser开源库集合支持各种常见编程语言，其中uap-core项目中的正则表达式文件[regexes.yaml](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml)是关键，可以参考使用。
+
+正则表达式工具网站在解析时很有用：https://regex101.com/
+
+### UA演进
+
+Google正在推动废除UA或冻结UA字段（只读），用[UA Client Hints](https://wicg.github.io/ua-client-hints/)方案替代，并已形成W3C草案。
 
 ### 参考资料
 
+- [Browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent)
+- [使用UserAgent字段进行浏览器检测](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Browser_detection_using_the_user_agent)
 - [User-Agent Client Hints - Draft Community Group Report, 1 July 2022](https://wicg.github.io/ua-client-hints/)
 - Google [Chrome Platform Status - Feature: Sec-CH-UA Client Hints](https://chromestatus.com/feature/5995832180473856)
 - Google Chrome [User-Agent reduction](https://developer.chrome.com/docs/privacy-sandbox/user-agent/)
