@@ -26,43 +26,40 @@ categories: HTTP
 
 
 
-UA检测看起来简单，实际上很难。
+Using the user agent to detect the browser looks simple, but doing it well is, in fact, a very hard problem. 
+使用UA检测浏览器看起来很简单，但是做得很好，实际上是一个非常困难的问题。
 
-> Using the user agent to detect the browser looks simple, but doing it well is, in fact, a very hard problem. 
->
-> 使用UA检测浏览器看起来很简单，但是做得很好，实际上是一个非常困难的问题。
 
-UA代理字符串不同部分格式不统一，解析起来tricky棘手
 
-> As there is no uniformity of the different part of the user agent string, this is the tricky part.
->
-> 由于用户代理字串的不同部分缺乏统一性，这是一个较难对付的问题。
+As there is no uniformity of the different part of the user agent string, this is the tricky part.
+由于用户代理字串的不同部分缺乏统一性，这是一个较难对付的问题。
 
-出现新的设备/浏览器时必须进行调研是否需要修改脚本（正则表达）
 
-> A technological survey must be in place to adapt the script when new browser versions are coming out.
->
-> 当新的浏览器版本发布的时候，必须进行一次技术调研，看是否需要和怎么修改UA解析脚本以适应新的浏览器。
 
-推荐方法：优先使用功能侦测（Feature Detect），最后没办法时才fallback到UA侦测
+A technological survey must be in place to adapt the script when new browser versions are coming out.
+当新的浏览器版本发布的时候，必须进行一次技术调研，看是否需要和怎么修改UA解析脚本以适应新的浏览器。
 
-> Mobile device detection
->
-> Use Navigator.maxTouchPoints to detect if the user's device has a touchscreen. Then, default back to checking the user agent screen only if (!("maxTouchPoints" in navigator)) { /*Code here*/}. 
 
+
+**Mobile device detection**
+
+推荐方法：优先使用功能侦测（Feature Detect），最后没办法时才fallback到UA检测。
+
+Use Navigator.maxTouchPoints to detect if the user's device has a touchscreen. Then, default back to checking the user agent screen only if (!("maxTouchPoints" in navigator)) { /*Code here*/}. 
 <img src="https://gongpengjun.com/imgs/UA_hasTouchScreen.png" width="100%" alt="Mobile device detection">
 
-UA解析只在是在没有办法时当做fallback的手段。
 
 
-
-UA解析开源库 [ua-parser](https://github.com/ua-parser)
+**UA解析开源库**
+[ua-parser](https://github.com/ua-parser)
 
 - https://github.com/ua-parser/uap-core
 - https://github.com/ua-parser/uap-java 
-- ...
+- https://github.com/ua-parser/uap-go
 
 ua-parser开源库集合支持各种常见编程语言，其中uap-core项目中的正则表达式文件[regexes.yaml](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml)是关键，可以参考使用。
+
+
 
 正则表达式工具网站在解析时很有用：https://regex101.com/
 
