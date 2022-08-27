@@ -7,11 +7,13 @@ categories: HTTP
 
 关于User-Agent（简称UA），最近做了一些调研，总结一些常识。
 
-### UA的历史
+### UA的定义
 
-[RFC9110](https://www.rfc-editor.org/rfc/rfc9110#section-3.5)中定义了user agent，特别说明不止浏览器，爬虫、命令行程序都是user agent。
+[RFC9110 Section-3.5](https://www.rfc-editor.org/rfc/rfc9110#section-3.5) 定义了user agent，特别说明不止浏览器，爬虫、命令行程序都是user agent。
 
-[RFC9110](https://www.rfc-editor.org/rfc/rfc9110#section-10.1.5)中定义了 User-Agent HTTP请求头字段的格式和内容。user agent发送每个HTTP请求时都应该携带User-Agent字段。
+[RFC9110 Section-10.1.5](https://www.rfc-editor.org/rfc/rfc9110#section-10.1.5) 定义了 User-Agent HTTP请求头字段的格式和内容。
+
+HTTP是无状态协议，user agent发送的每个HTTP请求时都要携带User-Agent字段。
 
 ### UA的用途
 
