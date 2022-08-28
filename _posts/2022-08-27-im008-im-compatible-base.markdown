@@ -180,9 +180,62 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 但是考虑到有多个终端平台iOS、Android、Windows、Mac，如果某个平台的Core发布后发现小Bug需要HotFix，那么要递增版本号，就会挤占其它端的下一个自然数。究其原因，在于自然数是连续的，没办法在两个常规的版本间插入一个HotFix版本。
 
-选项三就可以解决这个问题，因为Core的迭代发布日期是稀疏的，若干天才会发布一个Core版本，那么当某个端需要一个HotFix版本时，选择HotFix当天的日期作为版本号即可。总体上，多个端的主要版本号都是约定的统一的发布日期，同时允许某个端临时HotFix插入一个新的版本号。
+<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_04_feature_and_core_versions.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+
+选项三就可以解决这个问题，因为Core的迭代发布日期是稀疏的，若干天才会发布一个Core版本，那么当某个端需要一个HotFix版本时，选择HotFix当天的日期作为版本号即可。
+
+总体上，多个端的主要版本号都是约定的统一的发布日期，多端一致，同时允许某个端临时HotFix插入一个新的版本号，保留弹性。
 
 参考 Google 对[Android SDK API版本](https://apilevels.com/)的实践，我们可以把Core版本号命名为`core_level`，取值为Core的发布日期的整数表示。
+
+### 3.8、Core版本传输方式
+
+每个API和每条长连接数据包都携带Core版本，这样服务端可以无状态得处理每一个请求。如果需要在服务端主动推送时区分目标端的版本，可以在App登录时将其携带的Core版本落库存储，然后推送时查询使用。
+
+#### 3.8.1、短连接
+
+HTTP短连接通过新增Header字段方式传输：
+
+```shell
+curl "https://{domain}/api/v1/xxx" \
+  -H "platform: ios" \
+  -H "app_version: 8.0" \
+  -H "core_level: 220819"
+```
+
+#### 3.8.2、长连接
+
+长连接SDK通过类似HTTP Header的方式传输：
+
+```json
+{
+  "platform": "ios",
+  "app_version": "8.0",
+  "core_level": "220819",
+  "traceid": "xxxxxxxx",
+  "spanid": "yyyy"
+}
+```
+
+#### 3.8.3、短转长
+
+短转长时HTTP Header会转换为长连接数据body里的header通过长链传递。
+
+这样就同时存在长连接header和长连接body.header两套字段，最终以长连接body.header为准即可。
+
+#### 3.8.4、其它
+
+IM系统里的浏览器和小程序，如果可以新增HTTP Header则新增Header传输，实在没有办法可以通过User-Agent传输该信息，服务端优先解析Header，没有找到时再解析User-Agent。
+
+```java
+Integer coreLevel = getHTTPHeader("core_level");
+if (coreLevel == null) {
+  String ua = getHTTPHeader("User-Agent");
+  Matcher matcher = Pattern.compile(" core_level\\/([1-9][0-9]+)( |$)").matcher(ua);
+  String levelString = matcher.find() ? matcher.group(0).substring(1) : "0";
+  coreLevel = Integer.valueOf(levelString);
+}
+```
 
 ## 4、多个App解决方案总结
 
