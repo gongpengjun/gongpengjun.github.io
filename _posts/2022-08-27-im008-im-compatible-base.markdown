@@ -244,3 +244,6 @@ boolean isClientSupportRedEnvelopMessage(Integer coreLevel) {
 
 ## 5、参考资料
 
+- [Browser vs Engine Version](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Browser_detection_using_the_user_agent)：Browser对应本文的App，Engine对应本文的Core
+- [Node.js ABI version number](https://nodejs.org/en/download/releases/)：NODE_MODULE_VERSION
+- [Android SDK API Level](https://apilevels.com/)：API Level整数便于判断、使用和准确沟通
