@@ -25,9 +25,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 }
 ```
 
-只要不同平台的客户端App都是在V2.1.0引入的红包消息，那么上面这行版本比对代码可以同时适用于多个平台。
-
-附: _版本号比对实现_ (未充分考虑异常情况)
+附: 版本号比对逻辑 (未充分考虑异常情况)
 
 ```java
 List<Integer> versionNumbers(String version) {
