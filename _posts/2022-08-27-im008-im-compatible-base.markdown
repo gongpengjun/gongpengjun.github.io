@@ -13,9 +13,9 @@ App随着时间推移，会发布不同版本，但不是每个App用户都会�
 
 <img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
 
-一般来说，不同的客户端iOS、Android、Windows、Mac都是同步迭代，所以三端发版时间一致，App版本号也一样。
+一般来说，不同的客户端iOS、Android、Windows、Mac都是同步迭代，多端发版时间一致，App版本号也一样。
 
-所以用跨多端同一个的App版本号可以很容易地让服务端只用写一遍判断和兼容逻辑。
+所以用跨多端的App版本号可以很容易地让服务端只用写一遍判断和兼容逻辑。
 
 示例：假设从V2.1.0开始应用红包消息，那么判断客户端是否支持红包的逻辑伪代码如下
 
@@ -194,7 +194,8 @@ HTTP短连接通过新增Header字段方式传输：
 
 ```shell
 curl "https://{domain}/api/v1/xxx" \
-  -H "core_level: 220819"
+  -H "core_level: 220819" \
+  -H "traceid: 0ad1348f1403169275002100356696"
 ```
 
 #### 3.8.2、长连接
@@ -204,7 +205,7 @@ curl "https://{domain}/api/v1/xxx" \
 ```json
 {
   "core_level": "220819",
-  "traceid": "xxxxxxxx"
+  "traceid": "0ad1348f1403169275002100356696"
 }
 ```
 
