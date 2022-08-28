@@ -1,11 +1,9 @@
 ---
 layout: post
-title: IM008 - IM兼容性基础
+title: IM008 - IM兼容性基础 (第二版)
 date: 2022-08-27 09:00:00
 categories: IM707
 ---
-
-[TOC]
 
 App随着时间推移，会发布不同版本，但不是每个App用户都会升级到最新版本，服务端只有最新版，所以需要做兼容处理。
 
@@ -13,7 +11,7 @@ App随着时间推移，会发布不同版本，但不是每个App用户都会�
 
 首先想到的就是直接使用App版本号判断新老版本并进行兼容处理。
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
 
 一般来说，不同的客户端iOS、Android、Windows、Mac都是同步迭代，所以三端发版时间一致，App版本号也一样。
 

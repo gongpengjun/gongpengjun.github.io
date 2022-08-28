@@ -1,6 +1,6 @@
 ---
 layout: post
-title: IM007 - 兼容性设计
+title: IM007 - 兼容性基础 (第一版)
 date: 2022-08-17 09:00:00
 categories: IM707
 ---
