@@ -198,8 +198,6 @@ HTTP短连接通过新增Header字段方式传输：
 
 ```shell
 curl "https://{domain}/api/v1/xxx" \
-  -H "platform: ios" \
-  -H "app_version: 8.0" \
   -H "core_level: 220819"
 ```
 
@@ -209,11 +207,8 @@ curl "https://{domain}/api/v1/xxx" \
 
 ```json
 {
-  "platform": "ios",
-  "app_version": "8.0",
   "core_level": "220819",
-  "traceid": "xxxxxxxx",
-  "spanid": "yyyy"
+  "traceid": "xxxxxxxx"
 }
 ```
 
@@ -247,4 +242,5 @@ boolean isClientSupportRedEnvelopMessage(Integer coreLevel) {
 }
 ```
 
-本文完。
+## 5、参考资料
+
