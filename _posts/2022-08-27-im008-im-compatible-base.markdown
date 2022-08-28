@@ -184,49 +184,59 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 参考 Google 对[Android SDK API版本](https://apilevels.com/)的实践，我们可以把Core版本号命名为`core_level`，取值为Core的发布日期的整数表示。
 
-### 3.8、Core版本传输方式
+### 3.8、其它版本标识
+
+#### 3.8.1、platform
+
+Core不同端在实际版本迭代中，可能存在差异，为了针对具体端进行特定的兼容，需要知道当前是哪个端，可以约定`platform`字段表示端。取值可以是：`ios`、`android`、`win`、`mac`、`linux`等。
+
+#### 3.8.2、App版本号
+
+在IM相关逻辑的兼容性判断中，只需使用跨App的多端一致的core_level了。但是为了和最终用户、产品经理等沟通方便，保留App版本号`app_version`用于人和人之间沟通交流。`core_level`主要用于研发工程师之间，还有工程师和程序之间的沟通。两者各取所长。
+
+### 3.9、版本标识传输方式
 
 每个API和每条长连接数据包都携带Core版本，这样服务端可以无状态得处理每一个请求。如果需要在服务端主动推送时区分目标端的版本，可以在App登录时将其携带的Core版本落库存储，然后推送时查询使用。
 
-#### 3.8.1、短连接
+#### 3.9.1、短连接
 
 HTTP短连接通过新增Header字段方式传输：
 
 ```shell
 curl "https://{domain}/api/v1/xxx" \
+  -H "platform: ios" \
+  -H "app_version: 8.0.25" \
   -H "core_level: 220819" \
   -H "traceid: 0ad1348f1403169275002100356696"
 ```
 
-#### 3.8.2、长连接
+#### 3.9.2、长连接
 
 长连接SDK通过类似HTTP Header的方式传输：
 
 ```json
 {
+  "platform": "ios",
+  "app_version": "8.0.25",
   "core_level": "220819",
   "traceid": "0ad1348f1403169275002100356696"
 }
 ```
 
-#### 3.8.3、短转长
+#### 3.9.3、短转长
 
 短转长时HTTP Header会转换为长连接数据body里的header通过长链传递。
 
 这样就同时存在长连接header和长连接body.header两套字段，最终以长连接body.header为准即可。
 
-#### 3.8.4、其它
+#### 3.9.4、其它
 
 IM系统里的浏览器和小程序，如果可以新增HTTP Header则新增Header传输，实在没有办法可以通过User-Agent传输该信息，服务端优先解析Header，没有找到时再解析User-Agent。
 
+服务端解析UA的正则表达式：https://regex101.com/r/kWkkt4/1
+
 ```java
-Integer coreLevel = getHTTPHeader("core_level");
-if (coreLevel == null) {
-  String ua = getHTTPHeader("User-Agent");
-  Matcher matcher = Pattern.compile(" core_level\\/([1-9][0-9]+)( |$)").matcher(ua);
-  String levelString = matcher.find() ? matcher.group(0).substring(1) : "0";
-  coreLevel = Integer.valueOf(levelString);
-}
+/ platform\/(ipad|ios|android|mac|win|linux) app_version\/([0-9]\.[0-9]+\.[0-9]+) core_level\/([1-9][0-9]+)( |$)/
 ```
 
 ## 4、多个App解决方案总结
