@@ -17,7 +17,7 @@ App随着时间推移，会发布不同版本，但不是每个App用户都会�
 
 所以用跨多端同一个的App版本号可以很容易地让服务端只用写一遍判断和兼容逻辑。
 
-示例：假设从V2.1.0开始应用红包消息，那么判断客户端是否支持红包的逻辑_伪代码如下_
+示例：假设从V2.1.0开始应用红包消息，那么判断客户端是否支持红包的逻辑伪代码如下
 
 ```java
 boolean isClientSupportRedEnvelopMessage(String appVersion) {
@@ -39,7 +39,7 @@ List<Integer> versionNumbers(String version) {
   return verNums;
 }
 
-public boolean greaterThanOrEqual(String appVersion, String targetVersion) {
+boolean greaterThanOrEqual(String appVersion, String targetVersion) {
   List<Integer> appVerNums = versionNumbers(appVersion);
   Integer appMajorVerNum = appVerNums.get(0);
   Integer appMinorVerNum = appVerNums.get(1);
@@ -62,7 +62,7 @@ public boolean greaterThanOrEqual(String appVersion, String targetVersion) {
 
 每个业务场景都会有自己的客户端App，每个App都有自己的版本号，那么根据App版本号判断新老版本的逻辑就不适用了。
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
 
 _一个App时_：
 
@@ -88,7 +88,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 每个App推出新版本后，用户不可能瞬间就升级到最新版本，根据经验，每个App往往都会同时存在十个以上的不同版本。这就会形成如下图所示的局面：
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
 
 ## 3、多个App情况分析
 
@@ -98,7 +98,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 分析一下，如下图所示：假设一个IM团队维护的IM相关的客户端模块有IM Client SDK、联系人、长连接、朋友圈等四个模块。
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_01_one_im_mutilple_apps.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_01_one_im_mutilple_apps.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 - App 1：集成了全部四个模块。
 - App 2：只集成了三个模块。
@@ -116,7 +116,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 那么，我们能不能给Core一个版本标识呢？
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 
 
@@ -124,19 +124,19 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 站在App的角度，每个App相当于打上了Core版本标签：
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.4、抛开App看Core版本
 
 如果不看App版本，只看Core版本标签：
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.5、从一套服务端代码看Core版本
 
 同一个IM团队，其IM Servers必然也是同一套代码集，不考虑部署的区别，那么上图逻辑上等价于下图：
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_03_app_versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.6、使用Core版本的兼容性判断
 
@@ -178,7 +178,7 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 但是考虑到有多个终端平台iOS、Android、Windows、Mac，如果某个平台的Core发布后发现小Bug需要HotFix，那么要递增版本号，就会挤占其它端的下一个自然数。究其原因，在于自然数是连续的，没办法在两个常规的版本间插入一个HotFix版本。
 
-<img src="/Users/gongpengjun/workspace/daily/gongpengjun.github.io/imgs/im707/im008_04_feature_and_core_versions.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_04_feature_and_core_versions.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 选项三就可以解决这个问题，因为Core的迭代发布日期是稀疏的，若干天才会发布一个Core版本，那么当某个端需要一个HotFix版本时，选择HotFix当天的日期作为版本号即可。
 
