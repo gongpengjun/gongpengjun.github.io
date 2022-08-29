@@ -172,7 +172,7 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 因为Core版本号不用给最终用户看的，无需遵循常见的语义版本号规范。而且Core版本号只用于版本对比，所以整数会是一个比较好的选择，方便比较，准确可靠。
 
-用自然数 1、 2、 3作为Core版本号是可以的，每个发布新的Core版本时递增一下就可以了。
+用自然数 1、 2、 3作为Core版本号是可以的，每个迭代发布新的Core版本时递增一下就可以了。
 
 但是考虑到有多个终端平台iOS、Android、Windows、Mac，如果某个平台的Core发布后发现小Bug需要HotFix，那么要递增版本号，就会挤占其它端的下一个自然数。究其原因，在于自然数是连续的，没办法在两个常规的版本间插入一个HotFix版本。
 
@@ -188,11 +188,11 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 #### 3.8.1、platform
 
-Core不同端在实际版本迭代中，可能存在差异，为了针对具体端进行特定的兼容，需要知道当前是哪个端，可以约定`platform`字段表示端。取值可以是：`ios`、`android`、`win`、`mac`、`linux`等。
+一套Core，不同端在实际开发中，可能存在差异，为了针对具体端进行特定的兼容，需要知道当前是哪个端，可以约定`platform`字段表示端。取值可以是：`ios`、`android`、`win`、`mac`、`linux`等。
 
 #### 3.8.2、App版本号
 
-在IM相关逻辑的兼容性判断中，只需使用跨App的多端一致的core_level了。但是为了和最终用户、产品经理等沟通方便，保留App版本号`app_version`用于人和人之间沟通交流。`core_level`主要用于研发工程师之间，还有工程师和程序之间的沟通。两者各取所长。
+在IM相关逻辑的兼容性判断中，只需使用跨App的多端一致的`core_level`了。但是为了和最终用户、产品经理等沟通方便，保留App版本号`app_version`用于人和人之间沟通交流。`core_level`主要用于研发工程师之间，还有工程师和程序之间的沟通。两者各取所长。
 
 ### 3.9、版本标识传输方式
 
@@ -236,7 +236,7 @@ IM系统里的浏览器和小程序，如果可以新增HTTP Header则新增Head
 服务端解析UA的[正则表达式](https://regex101.com/r/kWkkt4/1)：
 
 ```java
-/ platform\/(ipad|ios|android|mac|win|linux) app_version\/([0-9]\.[0-9]+\.[0-9]+) core_level\/([1-9][0-9]+)( |$)/
+/ platform\/(ios|android|mac|win|linux) app_version\/([0-9]\.[0-9]+\.[0-9]+) core_level\/([1-9][0-9]+)( |$)/
 ```
 
 ## 4、多个App解决方案总结
