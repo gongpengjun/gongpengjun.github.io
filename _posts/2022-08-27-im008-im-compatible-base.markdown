@@ -233,7 +233,7 @@ curl "https://{domain}/api/v1/xxx" \
 
 IM系统里的浏览器和小程序，如果可以新增HTTP Header则新增Header传输，实在没有办法可以通过User-Agent传输该信息，服务端优先解析Header，没有找到时再解析User-Agent。
 
-服务端解析UA的[正则表达式](https://regex101.com/r/kWkkt4/1)：
+服务端解析UA的[正则表达式](https://regex101.com/r/BONapT/1)：
 
 ```java
 / platform\/(ios|android|mac|win|linux) app_version\/([0-9]\.[0-9]+\.[0-9]+) core_level\/([1-9][0-9]+)( |$)/
