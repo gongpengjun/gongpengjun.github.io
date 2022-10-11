@@ -11,7 +11,7 @@ App随着时间推移，会发布不同版本，但不是每个App用户都会�
 
 首先想到的就是直接使用App版本号判断新老版本并进行兼容处理。
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
 
 一般来说，不同的客户端iOS、Android、Windows、Mac都是同步迭代，多端发版时间一致，App版本号也一样。
 
@@ -60,7 +60,7 @@ boolean greaterThanOrEqual(String appVersion, String targetVersion) {
 
 每个业务场景都会有自己的客户端App，每个App都有自己的版本号，那么根据App版本号判断新老版本的逻辑就不适用了。
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
 
 _一个App时_：
 
@@ -86,7 +86,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 每个App推出新版本后，用户不可能瞬间就升级到最新版本，根据经验，每个App往往都会同时存在十个以上的不同版本。这就会形成如下图所示的局面：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
 
 ## 3、多个App情况分析
 
@@ -114,7 +114,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 那么，我们能不能给Core一个版本标识呢？
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 
 
@@ -122,19 +122,19 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 站在App的角度，每个App相当于打上了Core版本标签：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.4、抛开App看Core版本
 
 如果不看App版本，只看Core版本标签：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.5、从一套服务端代码看Core版本
 
 同一个IM团队，其IM Servers必然也是同一套代码集，不考虑部署的区别，那么上图逻辑上等价于下图：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.6、使用Core版本的兼容性判断
 
@@ -182,7 +182,7 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 总体上，多个端的主要版本号都是约定的统一的发布日期，多端一致，同时允许某个端临时HotFix插入一个新的版本号，保留弹性。
 
-参考 Google 对[Android SDK API版本](https://apilevels.com/)的实践，我们可以把Core版本号命名为`core_level`，取值为Core的发布日期的整数表示。
+参考 Google 对[Android SDK API版本](https://apilevels.com/)的实践，我们可以把Core版本号命名为`core-level`，取值为Core的发布日期的整数表示。
 
 ### 3.8、其它版本标识
 
@@ -192,7 +192,7 @@ boolean isClientSupportRedEnvelopMessage(Integer coreVersion) {
 
 #### 3.8.2、App版本号
 
-在IM相关逻辑的兼容性判断中，只需使用跨App的多端一致的`core_level`了。但是为了和最终用户、产品经理等沟通方便，保留App版本号`app_version`用于人和人之间沟通交流。`core_level`主要用于研发工程师之间，还有工程师和程序之间的沟通。两者各取所长。
+在IM相关逻辑的兼容性判断中，只需使用跨App的多端一致的`core-level`了。但是为了和最终用户、产品经理等沟通方便，保留App版本号`app-version`用于人和人之间沟通交流。`core-level`主要用于研发工程师之间，还有工程师和程序之间的沟通。两者各取所长。
 
 ### 3.9、版本标识传输方式
 
@@ -205,8 +205,8 @@ HTTP短连接通过新增Header字段方式传输：
 ```shell
 curl "https://{domain}/api/v1/xxx" \
   -H "platform: ios" \
-  -H "app_version: 8.0.25" \
-  -H "core_level: 220819" \
+  -H "app-version: 8.0.25" \
+  -H "core-level: 220819" \
   -H "traceid: 0ad1348f1403169275002100356696"
 ```
 
@@ -217,8 +217,8 @@ curl "https://{domain}/api/v1/xxx" \
 ```json
 {
   "platform": "ios",
-  "app_version": "8.0.25",
-  "core_level": "220819",
+  "app-version": "8.0.25",
+  "core-level": "220819",
   "traceid": "0ad1348f1403169275002100356696"
 }
 ```
@@ -236,7 +236,7 @@ IM系统里的浏览器和小程序，如果可以新增HTTP Header则新增Head
 服务端解析UA的[正则表达式](https://regex101.com/r/BONapT/1)：
 
 ```java
-/ platform\/(ios|android|mac|win|linux) app_version\/([0-9]\.[0-9]+\.[0-9]+) core_level\/([1-9][0-9]+)( |$)/
+/ platform\/(ios|android|mac|win|linux) app-version\/([0-9]\.[0-9]+\.[0-9]+) core-level\/([1-9][0-9]+)( |$)/
 ```
 
 ## 4、多个App解决方案总结
