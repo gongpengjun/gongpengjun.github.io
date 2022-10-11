@@ -11,7 +11,7 @@ App随着时间推移，会发布不同版本，但不是每个App用户都会�
 
 首先想到的就是直接使用App版本号判断新老版本并进行兼容处理。
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_1.svg" width="100%" alt="IM008-One IM, One App">
 
 一般来说，不同的客户端iOS、Android、Windows、Mac都是同步迭代，多端发版时间一致，App版本号也一样。
 
@@ -60,7 +60,7 @@ boolean greaterThanOrEqual(String appVersion, String targetVersion) {
 
 每个业务场景都会有自己的客户端App，每个App都有自己的版本号，那么根据App版本号判断新老版本的逻辑就不适用了。
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_2.svg" width="100%" alt="IM008-One IM, One App">
 
 _一个App时_：
 
@@ -86,7 +86,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 每个App推出新版本后，用户不可能瞬间就升级到最新版本，根据经验，每个App往往都会同时存在十个以上的不同版本。这就会形成如下图所示的局面：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_3.svg" width="100%" alt="IM008-One IM, One App">
 
 ## 3、多个App情况分析
 
@@ -114,7 +114,7 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 那么，我们能不能给Core一个版本标识呢？
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_4.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 
 
@@ -122,19 +122,19 @@ boolean isClientSupportRedEnvelopMessage(String appVersion) {
 
 站在App的角度，每个App相当于打上了Core版本标签：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_5.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.4、抛开App看Core版本
 
 如果不看App版本，只看Core版本标签：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_6.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.5、从一套服务端代码看Core版本
 
 同一个IM团队，其IM Servers必然也是同一套代码集，不考虑部署的区别，那么上图逻辑上等价于下图：
 
-<img src="https://gongpengjun.com/imgs/im707/im008_03_app-versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
+<img src="https://gongpengjun.com/imgs/im707/im008_03_app_versions_and_srv_deploy_7.svg" width="100%" alt="IM008-One IM, Multiple Apps">
 
 ### 3.6、使用Core版本的兼容性判断
 
