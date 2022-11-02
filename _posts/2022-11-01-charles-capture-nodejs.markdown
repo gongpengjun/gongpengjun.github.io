@@ -16,7 +16,7 @@ Failure Client closed the connection before a request was made. Possibly the SSL
 Notes You may need to configure your browser or application to trust the Charles Root Certificate. See SSL Proxying in the Help menu.
 ```
 
-<img src="https://gongpengjun.com/imgs/network/charles_ssl_cert_rejected.png" alt="Charles capture nodejs app error">
+<img src="https://gongpengjun.com/imgs/network/charles_ssl_cert_rejected.png" width="100%" alt="Charles capture nodejs app error">
 
 
 ### 根因分析
