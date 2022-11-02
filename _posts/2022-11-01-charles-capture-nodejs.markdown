@@ -26,7 +26,7 @@ Charles抓包拓扑:
 <img src="https://gongpengjun.com/imgs/network/charles_packet_capture_nodejs_app.png" alt="Charles capture nodejs app packet">
 
 ```
-node index.js → Charles Proxy → remote server (jsonplaceholder.typicode.com)
+node app.js → Charles Proxy → remote server (jsonplaceholder.typicode.com)
 ```
 
 查看nodejs应用控制台报错输出：
