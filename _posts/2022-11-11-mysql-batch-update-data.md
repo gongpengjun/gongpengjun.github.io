@@ -57,6 +57,8 @@ where
   substring_index(substring_index(avatar_url, '/', 3), '/', -1) = 'old.gongpengjun.com';
 ```
 
+注：`substring_index(substring_index(avatar_url, '/', 3), '/', -1)`从URL中提取完整的域名host字段。
+
 #### 1.3、`count_new_host.sql`
 
 新数据统计的SQL `count_new_host.sql`
