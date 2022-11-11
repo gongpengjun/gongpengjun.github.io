@@ -7,10 +7,11 @@ categories: MySQL
 
 使用Shell脚本对MySQL数据库中的数据进行批量刷新的方法。
 
-### 0、执行SQL的脚本
+### 0、MySQL脚本 `mysql.sh`
+
+登录或执行SQL的脚本 `mysql.sh`:
 
 ```shell
-$ cat mysql.sh
 #!/bin/bash
 
 script_name=`basename "$0"`
@@ -32,6 +33,8 @@ fi
 
 #### 1.1、`sample_record.sql`
 
+数据采样的SQL `sample_record.sql`
+
 ```sql
 select
   *
@@ -43,6 +46,8 @@ limit
 
 #### 1.2、`count_old_host.sql`
 
+老数据统计的SQL `count_old_host.sql`
+
 ```sql
 select
   count(1) as avatar_url_old_host_count
@@ -53,6 +58,8 @@ where
 ```
 
 #### 1.3、`count_new_host.sql`
+
+新数据统计的SQL `count_new_host.sql`
 
 ```sql
 select
@@ -88,7 +95,7 @@ $ ./mysql.sh count_new_host.sql
 
 #### 2.1、生成刷数据SQL
 
-`generate_old_to_new_update_sql.sql`:
+生成刷数据SQL的SQL `generate_old_to_new_update_sql.sql`:
 
 ```sql
 select
@@ -113,7 +120,7 @@ $ ./mysql.sh generate_old_to_new_update_sql.sql > avatar_url_host_old_to_new_upd
 
 #### 2.2、执行刷数据SQL
 
-`avatar_url_host_old_to_new_update.sql`:
+生成的刷数据的SQL `avatar_url_host_old_to_new_update.sql`:
 
 ```sql
 UPDATE `baby_database`.`users` SET `avatar_url` = REPLACE(`avatar_url`, "old.gongpengjun.com", "new.gongpengjun.com") WHERE `id` = 1;
