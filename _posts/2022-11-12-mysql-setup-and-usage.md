@@ -315,7 +315,7 @@ Rows in table: baby_database.users
 3
 ```
 
-## 5、关闭MySQL
+## 5、MySQL启动和停止
 
 ### 5.1、启动MySQL
 
