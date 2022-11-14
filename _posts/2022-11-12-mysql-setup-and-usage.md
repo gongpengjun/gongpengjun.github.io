@@ -128,7 +128,7 @@ $ docker-compose up -d
 
 ### 3.2、登录MySQL - `root`
 
-#### 3.2.1、登录脚本 - root
+#### 3.2.1、root账户登录脚本
 
 `tools/mysql_user_root.sh`:
 
@@ -168,9 +168,9 @@ $ tools/mysql_user_root.sh tools/show_mysql_uptime.sql
 Uptime	119
 ```
 
-### 3.3、登录MySQL - `gongpengjun`
+### 3.3、登录MySQL - 普通用户
 
-#### 3.3.1、登录脚本 - gongpengjun
+#### 3.3.1、普通用户登录脚本
 
 `tools/mysql_user_gongpengjun.sh`:
 
