@@ -111,7 +111,7 @@ SELECT
     ', `updated_at` = ', '"', updated_at, '"',
     ' WHERE `id` = ',
     id,
-    ' limit 1;'
+    ' LIMIT 1;'
   ) AS `baby_database.users.avatar_url.rollback.sql`
 FROM
   `baby_database`.`users`
@@ -128,10 +128,10 @@ $ ./mysql.sh generate_old_rollback_sql.sql | awk '1;NR%2==0{print "DO SLEEP(1); 
 生成的回滚SQL `avatar_url_host_old_rollback.sql`：
 
 ```sql
-UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/a.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 1 limit 1;
-UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/b.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 2 limit 1;
+UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/a.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 1 LIMIT 1;
+UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/b.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 2 LIMIT 1;
 DO SLEEP(1); /* wait for a second */
-UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/c.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 3 limit 1;
+UPDATE `baby_database`.`users` SET `avatar_url` = "https://old.gongpengjun.com/baby-public/c.png", `updated_at` = "2022-11-15 21:06:41" WHERE `id` = 3 LIMIT 1;
 ```
 
 注：`NR%2==0`表示每2行输出一行`DO SLEEP(1);`即暂停1秒，实际场景可以使用`NR%500==0`每500行暂停一秒。
