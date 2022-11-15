@@ -182,6 +182,12 @@ UPDATE `baby_database`.`users` SET `avatar_url` = REPLACE(`avatar_url`, "old.gon
 $ ./mysql.sh avatar_url_host_old_to_new_update.sql
 ```
 
+或 (如果刷新的数据量特别大时采用后台执行)
+
+```shell
+$ nohup ./mysql.sh avatar_url_host_old_to_new_update.sql > avatar_url_host_old_to_new_update.log 2>&1 &
+```
+
 ### 3、刷新后数据采样和统计
 
 #### 3.1、数据采样
