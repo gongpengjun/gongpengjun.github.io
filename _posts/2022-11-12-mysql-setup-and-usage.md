@@ -347,6 +347,7 @@ $ docker-compose down
 
 ## 6、参考资料
 
+- [shell script and sql](https://github.com/gongpengjun/baby-mysql/tree/main/mysql_setup)
 - [Oreilly MySQL Cookbook](https://www.oreilly.com/library/view/mysql-cookbook-2nd/059652708X/ch01s30.html)
 - [docker-compose でMySQL環境簡単構築](https://qiita.com/A-Kira/items/f401aea261693c395966)
 - [教程：创建具有 MySQL 和 Docker Compose 的多容器应用](https://learn.microsoft.com/zh-cn/visualstudio/docker/tutorials/tutorial-multi-container-app-mysql)
