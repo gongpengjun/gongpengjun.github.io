@@ -6,15 +6,7 @@ date: 2022-11-17 09:00:00
 categories: IM
 ---
 
-IM中发消息、传文件是基本功能。一条文本消息可能只有100个字节，一个文件可能100MB，两者相差百万倍，所以文件类消息（图片、语音、视频、文档、表情图片等）在网络传输、实时触达等方面更难一些，很容易失败，继而导致负面的使用体验。
-
-<img src="https://gongpengjun.com/imgs/im707/file_perf/file_transfer.jpg" width="100%" alt="file transfer">
-
-文件传输常见的优化方法有分片上传、断点续传、重复文件秒传、多接入点的就近上传、预览缩略图等等。
-
-但是光有这些就够了吗？
-
-一天，有个小桔子发来一张文件下载速度为 0.0 B/s 的截图，并反馈：“在办公网，下载文件咋会这么慢...”
+一天，有个IM用户发来一张文件下载速度为 0.0 B/s 的截图，并反馈：“在办公网，下载文件咋会这么慢...”
 
 <img src="https://gongpengjun.com/imgs/im707/file_perf/speed_zero.png" width="100%" alt="speed zero">
 
