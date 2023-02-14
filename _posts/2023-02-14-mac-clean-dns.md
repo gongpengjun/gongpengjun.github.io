@@ -3,7 +3,7 @@
 layout: post
 title: Mac清空DNS缓存命令
 date: 2023-02-12 09:00:00
-categories: 网络
+categories: network
 ---
 
 ### Mac清空DNS缓存命令

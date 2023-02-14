@@ -3,7 +3,7 @@
 layout: post
 title: tcpdump抓包http流量
 date: 2022-11-27 09:00:00
-categories: 网络
+categories: network
 ---
 
 ### tcpdum http 常用命令
