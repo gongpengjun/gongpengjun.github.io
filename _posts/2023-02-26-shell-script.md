@@ -10,6 +10,8 @@ categories: script
 
 ### 1、参数判断
 
+模版：
+
 ```shell
 #!/bin/bash
 
@@ -25,11 +27,12 @@ fi
 说明：
 
 - `$0` 表示脚本文件名
-
 - `$1` 表示第一个参数，以此类推
 - `$#` 表示参数个数
 
 ### 2、遍历文件
+
+模版：
 
 ```shell
 #!/bin/bash
@@ -71,6 +74,8 @@ line 4 : LinuxMint
 参考：https://linuxhint.com/while_read_line_bash/
 
 ### 3、遍历数组
+
+模版：
 
 ```shell
 #!/bin/bash
