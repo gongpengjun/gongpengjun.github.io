@@ -85,7 +85,7 @@ $ tree
 5 directories, 5 files
 
 # 集群只有一个etcd节点
-$ etcdctl -w=table member list
+$ etcdctl --endpoints=$NUC:12379 -w=table member list
 +------------------+---------+--------+--------------------+--------------------+------------+
 |        ID        | STATUS  |  NAME  |     PEER ADDRS     |    CLIENT ADDRS    | IS LEARNER |
 +------------------+---------+--------+--------------------+--------------------+------------+
@@ -93,12 +93,11 @@ $ etcdctl -w=table member list
 +------------------+---------+--------+--------------------+--------------------+------------+
 
 # 数据读写
-$ etcdctl get secret
-$ etcdctl put secret baby-im
+$ etcdctl --endpoints=$NUC:12379 put secret gongpengjun
 OK
-$ etcdctl get secret
+$ etcdctl --endpoints=$NUC:12379 get secret
 secret
-baby-im
+gongpengjun
 ```
 
 ### 2、3实例etcd集群
