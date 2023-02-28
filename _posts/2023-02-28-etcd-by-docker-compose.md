@@ -57,19 +57,21 @@ networks:
 实际使用：
 
 ```shell
+## 在nuc上运行
+
 # 启动etcd cluster
-$ docker-compose up -d
+nuc$ docker-compose up -d
 Creating network "etcd-single-node_bridge-network" with driver "bridge"
 Creating etcd-single-node_etcd-1_1 ... done
 
 # 查看容器状态
-$ docker-compose ps
-          Name                         Command               State                       Ports
--------------------------------------------------------------------------------------------------------------------
-etcd-single-node_etcd-1_1   /usr/local/bin/etcd --name ...   Up      0.0.0.0:2379->2379/tcp, 0.0.0.0:2380->2380/tcp
+nuc$ docker-compose ps
+          Name                         Command               State                 Ports
+------------------------------------------------------------------------------------------------------
+etcd-single-node_etcd-1_1   /usr/local/bin/etcd --name ...   Up      0.0.0.0:12379->2379/tcp, 2380/tcp
 
 # 查看data目录树，etcd已经初始化好了数据目录
-$ tree
+nuc$ tree
 .
 ├── README.md
 ├── data
@@ -84,8 +86,10 @@ $ tree
 
 5 directories, 5 files
 
+## 下面是在
+
 # 集群只有一个etcd节点
-$ etcdctl --endpoints=$NUC:12379 -w=table member list
+mac$ etcdctl --endpoints=$NUC:12379 -w=table member list
 +------------------+---------+--------+--------------------+--------------------+------------+
 |        ID        | STATUS  |  NAME  |     PEER ADDRS     |    CLIENT ADDRS    | IS LEARNER |
 +------------------+---------+--------+--------------------+--------------------+------------+
@@ -93,9 +97,9 @@ $ etcdctl --endpoints=$NUC:12379 -w=table member list
 +------------------+---------+--------+--------------------+--------------------+------------+
 
 # 数据读写
-$ etcdctl --endpoints=$NUC:12379 put secret gongpengjun
+mac$ etcdctl --endpoints=$NUC:12379 put secret gongpengjun
 OK
-$ etcdctl --endpoints=$NUC:12379 get secret
+mac$ etcdctl --endpoints=$NUC:12379 get secret
 secret
 gongpengjun
 ```
