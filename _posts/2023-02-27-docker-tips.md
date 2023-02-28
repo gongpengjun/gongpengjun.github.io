@@ -44,6 +44,8 @@ hello.txt
 - [Getting a Shell in the Docker Desktop Mac VM](https://gist.github.com/BretFisher/5e1a0c7bcca4c735e716abf62afad389)
 - [Justin Cormack (Docker Maintainer)'s nsenter1 Repo](https://github.com/justincormack/nsenter1)
 - [Under the Hood: Demystifying Docker Desktop For Mac](https://collabnix.com/how-docker-for-mac-works-under-the-hood/)
+- [Docker Compose Syntax: Volume or Bind Mount?](https://maximorlov.com/docker-compose-syntax-volume-or-bind-mount/)
+- [Docker Volumes explained in 6 minutes](https://www.youtube.com/watch?v=p2PH_YPCsis)
 
 
 
