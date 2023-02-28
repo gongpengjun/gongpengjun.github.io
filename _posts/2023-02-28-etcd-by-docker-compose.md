@@ -104,7 +104,7 @@ secret
 gongpengjun
 ```
 
-### 2、3实例etcd集群
+### 2、三实例etcd集群
 
 doccker-compose管理的3实例etcd集群，支持数据持久化，支持公网访问
 
