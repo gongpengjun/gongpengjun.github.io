@@ -47,7 +47,7 @@ networks:
 说明：
 
 - 使用官方镜像：quay.io/coreos/etcd:v3.5.7
-- 使用bind volume，即映射宿主机目录`./data/etcd1`到容器`/etcd-data`目录，配合`--data-dir=/etcd-data`
+- 使用bind volume，即映射宿主机目录`./data/etcd1`到容器目录`/etcd-data`，配合`--data-dir=/etcd-data`让etcd使用
 - 禁用IPv6网络`enable_ipv6: false`，以便重启时不会报port已被占用错误
 - 支持开机启动 `restart: always`
 - 端口映射`"12379:2379"`将宿主机端口`12379`映射到容器`2379`端口，给公网访问使用
