@@ -113,6 +113,16 @@ array[2]: element 3
 array[3]: element 4
 ```
 
+### 4、显示命令
+
+```shell
+#!/bin/bash
+
+CMD="df -kh"
+echo $CMD
+exec $CMD
+```
+
 参考：
 
 - [bash read](https://phoenixnap.com/kb/bash-read)
