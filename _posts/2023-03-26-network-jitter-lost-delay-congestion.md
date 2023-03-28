@@ -25,9 +25,9 @@ categories: network
 
 <img src="https://gongpengjun.com/imgs/network/packet_drop_arq.gif" width="100%" alt="ARQ">
 
-- 前向纠错算法（FEC）
+- 前向纠错技术（FEC）
 
-冗余： 前向纠错（Forward Error Correction, FEC）算法，就像飞鸽传书时一次放好几只，即使有一两只飞丢，其余信鸽也能把信息送达。
+冗余： 前向纠错（Forward Error Correction, FEC）技术，就像飞鸽传书时一次放好几只，即使有一两只飞丢，其余信鸽也能把信息送达。
 
 <img src="https://gongpengjun.com/imgs/network/packet_drop_fec.gif" width="100%" alt="FEC">
 
