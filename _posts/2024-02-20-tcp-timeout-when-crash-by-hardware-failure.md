@@ -13,7 +13,8 @@ categories: devops
 
 ### 1、故障现象
 
-IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所有用户13分钟无法建接，无法发消息。
+IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所有用户10多分钟无法建接，无法发消息。
+
 <img src="https://gongpengjun.com/imgs/network/crash_by_hardware_failure.png" width="100%" alt="crash_by_hardware_failure">
 
 ### 2、分析过程
