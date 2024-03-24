@@ -24,7 +24,7 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 通过客户端的日志，发现故障发生后不久，客户端连接宕机节点失败，就去连接其它正常节点，TCP和TLS握手都成功了，但是Auth请求超时，进而断开连接。重新建连、Auth超时断开。如此重复，一直卡在Auth环节。直到十多分钟后故障恢复时才连接并Auth成功。
 监控显示负责Auth处理的snitch-halo线程池满，无法给客户端返回Auth响应。
 
-总计一下，建连Auth的链路：IM客户端 → 长连接服务halo server → IM业务服务snitch-halo
+汇总一下，建连Auth的链路：IM客户端 → 长连接服务halo server → IM业务服务snitch-halo
 
 - IM客户端请求其它的正常halo节点，成功建立了tcp连接
 - IM客户端通过跟正常halo节点的TCP连接发出的auth没有获得响应
@@ -36,7 +36,7 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 <img src="https://gongpengjun.com/imgs/network/snitch-halo_call_halo_proc_time.png" width="100%" alt="snitch-halo_call_halo_proc_time">
 
-惊! 820秒左右，为啥snitch-halo调用halo会卡住十几分钟不结束呢？查看snitch-halo调用halo的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方halo突然宕机的情况下，调用方snitch-halo需要很长时间才能感知到TCP连接断开。Linux内核中tcp_retries2缺省值15，计算出的超时重传时间为15.4分钟，和故障场景下线程被卡住13分钟基本吻合。
+惊! **820秒**左右，为啥snitch-halo调用halo会卡住十几分钟不结束呢？查看snitch-halo调用halo的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方halo突然宕机的情况下，调用方snitch-halo需要很长时间才能感知到TCP连接断开。Linux内核中tcp_retries2缺省值15，计算出的超时重传时间为15.4分钟，和故障场景下线程被卡住13分钟基本吻合。
 
 推测毕竟只是推测，需要验证才能实锤。
 
