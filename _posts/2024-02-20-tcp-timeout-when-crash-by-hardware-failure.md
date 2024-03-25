@@ -146,7 +146,7 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-`date +%
 
 查看抓包：
 
-<img src="https://gongpengjun.com/imgs/network/imServer_unplugin_then_restart_longLinkServer_and_replugin_net_cable.png" width="100%" alt="imServer_unplugiin_then_restart_longLinkServer_and_replugin_net_cable">
+<img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_retransmission_timeout_packets.png" width="100%" alt="imServer_call_longLinkServer_retransmission_timeout_packets">
 
 
 抓包解读：
