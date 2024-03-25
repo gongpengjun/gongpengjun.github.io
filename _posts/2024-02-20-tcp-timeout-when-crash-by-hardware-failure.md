@@ -34,7 +34,7 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 <img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_proc_time.png" width="100%" alt="imServer_call_longLinkServer_proc_time">
 
-惊! **820秒**左右，为啥imServer调用longLinkServer会卡住十几分钟不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP连接断开。Linux内核中tcp_retries2缺省值15对应的超时重传时间大约15.4分钟，和故障场景下线程被卡住10多分钟基本吻合。
+惊! **820秒**左右，为啥imServer调用longLinkServer会卡住十几分钟不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP长连接断开。
 
 推测毕竟只是推测，需要验证才能实锤。
 
@@ -60,13 +60,13 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 ```shell
 # imServer正常调用longLinkServer一次耗时9毫秒
-[2024-02-20T16:45:47.750+0800][longLinkSrv-caller-1] proc_time=0.009||time_unit=second
+[2024-02-20T16:45:47.750+0800][longLinkSrv-caller-1] proc_time=0.009
 ```
 
 - step 3: 在imServer上用tcpdump抓取和longLinkServer@mac之间的TCP报文
 
 ```shell
-tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcpdump-`date +%s`-case1.pcapng
+tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-call-longLinkServer-`date +%s`-case1.pcapng
 ```
 
 - step 4: 16:45 拔掉网线，用客户端尝试重新建连失败，已经连接的消息发送失败，复现了故障时的现象。
@@ -86,12 +86,12 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcp
 
 <img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_retransmission_timeout_illustrated.png" width="100%" alt="imServer_call_longLinkServer_retransmission_timeout_illustrated">
 
-#1号报文显示在`16:45:47.834` imServer `10.190.11.68:52400` 给 longLinkServer@mac `172.24.136.17:1215` 发送seq=1的999字节TCP报文。
+#1号报文显示在`16:45:47.834` imServer `10.190.11.68:52400` 给 longLinkServer@mac `172.24.136.17:1215` 发送长度999字节的TCP报文。
 
 查看imServer的日志发现，调用longLinkServer的总共耗时950.004秒，和tcpdump抓包显示的超时949.092秒匹配，根据处理结束时间和耗时推算：`16:45:47.834 ~ 17:01:37.837 = 950.003秒`，其中计算出的起始时间`16:45:47.834`和抓到的原始包的时间匹配，`16:45`也刚好是拔网线的时间点。之前的**推测实锤了**。
 
 ```shell
- [2024-02-20T17:01:37.837+0800][longLinkSrv-caller-1] proc_time=950.003713||time_unit=second
+[2024-02-20T17:01:37.837+0800][longLinkSrv-caller-1] proc_time=950.003713
 ```
 
 #2号 ~ #17号是重传包，重传超时RTO时间指数倍增，Stevens Sequence/Time图如下，下图中的点在横坐标Time的取值是重传的时间点，间隔倍增，直到达到122秒后不再增加。
@@ -110,17 +110,21 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcp
 
 抓包解读：
 
-#1号包在`17:09:26.090`时刻imServer `10.190.11.68:54472`发出seq=1长度284字节的原始包给longLinkServer`172.24.136.17:1215`
+#1号包imServer `10.190.11.68:54472`发出长度284字节的原始包给longLinkServer`172.24.136.17:1215`
 
 以#1号原始包发出时间为参考时间点，此时网线已被拔掉。
 
-#2号包在0.208秒时开始发出，说明原始包的RTO为0.208秒，然后#3 ~ #12号包超时时间遵循指数退避原则进行重传。
+#2号包在0.208秒时开始发出，说明原始包的RTO为0.208秒
 
-#12号重传包在211.672秒时发出。#13号在211.674秒收到longLinkServer`172.24.136.17:1215`的ACK回包，往返耗时2毫秒。说明211.672秒（3.5分钟）时网线已被重新插好。
+#3 ~ #12号包超时时间遵循指数退避原则进行重传
 
-#14~#17号包是imServer和longLinkServer的gRPC请求往来包。
+#12号重传包在211.672秒时发出。
 
-#18~#21号包是标准的4次挥手断开TCP连接。
+#13号在211.674秒收到longLinkServer`172.24.136.17:1215`的ACK回包，往返耗时2毫秒。说明211.672秒（3.5分钟）时网线已被重新插好。
+
+>  #14~#17号包是imServer和longLinkServer的gRPC请求往来包。
+>
+> #18~#21号包是标准的4次挥手断开TCP连接。
 
 总结：`17:09` 拔掉网线，3.5分钟之内插上网线，插拔网线并没有影响到TCP的连接状态，只是增大了业务感知的延迟，这可能就是传说中的网络抖动导致延迟升高吧。
 
@@ -135,7 +139,7 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcp
 - step 2: 在imServer上用tcpdump抓取和longLinkServer@mac之间的TCP报文
 
 ```shell
-tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-`date +%s`-case3.pcapng
+tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer_call_longLinkServer-`date +%s`-case3.pcapng
 ```
 
 - step 3: 17:20拔掉网线
@@ -149,13 +153,17 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-`date +%
 
 抓包解读：
 
-#1号包在`17:20:10.171`时刻imServer `10.190.11.68:59388`发出seq=1长度280字节的原始包给longLinkServer`172.24.136.17:1215`
+#1号包imServer `10.190.11.68:59388`发出长度280字节的原始包给longLinkServer`172.24.136.17:1215`
 
 以#1号原始包发出时间为参考时间点，此时网线已被拔掉。
 
-#2号包在0.207秒时开始发出，说明原始包的RTO为0.207秒，然后#3 ~ #11号包超时时间遵循指数退避原则进行重传。
+#2号包在0.207秒时开始发出，说明原始包的RTO为0.207秒
 
-#11号重传包在108.263秒时发出。在108.264秒收到longLinkServer`172.24.136.17:1215`的#12号RST回包，TCP连接断开，往返耗时1毫秒。
+#3 ~ #11号包超时时间遵循指数退避原则进行重传。
+
+#11号重传包在108.263秒时发出。
+
+#12号在108.264秒收到longLinkServer`172.24.136.17:1215`的RST回包，TCP连接断开，往返耗时1毫秒。
 
 ## 4、根因结论
 
