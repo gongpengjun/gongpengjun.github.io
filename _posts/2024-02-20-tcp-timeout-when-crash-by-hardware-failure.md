@@ -34,7 +34,7 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 <img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_proc_time.png" width="100%" alt="imServer_call_longLinkServer_proc_time">
 
-惊! **820秒**左右，为啥imServer调用longLinkServer会卡住十几分钟不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP长连接断开。
+惊! **820秒**左右，为啥imServer调用longLinkServer会卡住800多秒不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP长连接断开。
 
 推测毕竟只是推测，需要验证才能实锤。
 
