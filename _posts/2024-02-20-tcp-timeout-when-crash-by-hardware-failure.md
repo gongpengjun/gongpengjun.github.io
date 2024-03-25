@@ -180,12 +180,13 @@ root@imServer:~$ cat /proc/sys/net/ipv4/tcp_retries2
 15
 ```
 
-因为RTO的最小值是200ms，数据中心服务期间的往返时间RTT极低，所以线上环境的RTO取值区间为[0.200秒, 120秒]，所以典型重传规律如下：
+因为RTO的最小值是200ms，数据中心服务期间的往返时间RTT极低，所以线上环境的RTO取值区间为[200毫秒, 120秒]，所以典型重传规律如下：
 
 <img src="https://gongpengjun.com/imgs/network/tcp_retries2_gongpengjun_conclusion.png" width="100%" alt="tcp_retries2_gongpengjun_conclusion">
 
-
 Linux内核一直重传直到超时的总耗时为924.8秒，约**15.4分钟**。
+
+> 在我们试验中，RTO初始值208毫秒，是因为测试用的服务器在北京亦庄机房、mac电脑在北京海淀上地，两地之间的RTT增加了8毫秒，RTO也增加8毫秒。
 
 ## 5、引申思考
 
