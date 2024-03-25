@@ -9,13 +9,13 @@ categories: devops
 
 读完本文，可以深入理解TCP连接的含义和TCP超时重传机制，进而也就明白为什么RPC一定要设置合理的超时时间了。
 
-### 1、故障现象
+## 1、故障现象
 
 IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所有用户10多分钟无法建接。
 
 <img src="https://gongpengjun.com/imgs/network/crash_by_hardware_failure.png" width="100%" alt="crash_by_hardware_failure">
 
-### 2、分析过程
+## 2、分析过程
 
 按照设计，长连接服务一个节点宕机后，会导致连接到该宕机节点的IM客户端App批量断开连接，然后这些断线的IM客户端会尝试重连、多次尝试失败会连接其它的长连接服务节点。其它长连接服务节点是正常的，为啥十多分钟都无法建连呢？
 
@@ -38,13 +38,13 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 推测毕竟只是推测，需要验证才能实锤。
 
-### 3、试验验证
+## 3、试验验证
 
 模拟故障场景，把测试环境一台longLinkServer节点和本地mac电脑上的长连接服务组成一个长连接服务集群，让测试环境的imServer服务跟该longLinkServer集群通信，正常服务拓扑如下面左图所示，我们通过拔掉本地mac电脑的网线来模拟长连接服务一个节点硬件故障宕机，拔网线后服务拓扑如下面右图所示。将imServer的线程池的线程个数配置为1，以方便观察。
 
 <img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_experiment_topo.png" width="100%" alt="imServer_call_longLinkServer_experiment_topo">
 
-#### 3.1、拔网线试验一: 拔掉网线（模拟硬件故障宕机）
+### 3.1、拔网线试验一: 拔掉网线（模拟硬件故障宕机）
 
 拔网线模拟硬件故障宿主机宕机，复现了故障时的现象：imServer线程池满、客户端无法建连。
 
@@ -100,7 +100,7 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcp
 
 #2号 ~ #17号报文都是在重传该TCP报文，一共重传了16次（tcp_retries2=15+1）
 
-#### 3.2、拔网线试验二: 拔网线再快速插上网线（模拟网络抖动）
+### 3.2、拔网线试验二: 拔网线再快速插上网线（模拟网络抖动）
 
 拔掉longLinkServer所在mac电脑网线，稍等片刻，再及时插回网线，双侧TCP连接完好无损，业务正常处理完成。
 
@@ -124,7 +124,7 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-test-tcp
 
 总结：`17:09` 拔掉网线，3.5分钟之内插上网线，插拔网线并没有影响到TCP的连接状态，只是增大了业务感知的延迟，这可能就是传说中的网络抖动导致延迟升高吧。
 
-#### 3.3、拔网线试验三: 拔网线重启服务再插上网线（模拟固定IP漂移）
+### 3.3、拔网线试验三: 拔网线重启服务再插上网线（模拟固定IP漂移）
 
 拔longLinkServer所在mac电脑网线，重启长连接服务进程，再插上网线，imServer侧超时重传，longLinkServer侧linux内核收到重传包后回RST包断开连接。
 
@@ -157,7 +157,7 @@ tcpdump -i eth0 -s 0 'host 172.24.136.17 and tcp port 1215' -w imServer-`date +%
 
 #11号重传包在108.263秒时发出。在108.264秒收到longLinkServer`172.24.136.17:1215`的#12号RST回包，TCP连接断开，往返耗时1毫秒。
 
-### 4、根因结论
+## 4、根因结论
 
 长连接服务一台容器宕机后，因为长连接服务配置的是固定IP漂移，所以没有自动漂移，宕机的longLinkServer容器处于死机状态。
 
@@ -179,7 +179,7 @@ root@imServer:~$ cat /proc/sys/net/ipv4/tcp_retries2
 
 Linux内核一直重传直到超时的总耗时为924.8秒，约**15.4分钟**。
 
-### 5、引申思考
+## 5、引申思考
 
 - 为啥机房内网的机器的tcp_retries2不能调小呢？
 
@@ -194,7 +194,7 @@ Linux内核一直重传直到超时的总耗时为924.8秒，约**15.4分钟**�
 - 为啥第一次重试和第二次重试的的RTO都是200毫秒，为啥第二次重试的RTO没有倍增到400ms呢？
 
 
-### 6、参考资料
+## 6、参考资料
 
 - 《TCP/IP详解 卷1 协议》英文版 第2版 
   - P650页 `binary exponential backoff`和`net.ipv4.tcp_retries2`
