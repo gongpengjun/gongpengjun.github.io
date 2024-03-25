@@ -28,15 +28,15 @@ IM长连接服务一台容器所在宿主由于硬件故障宕机，引发IM所�
 
 - IM客户端请求其它的正常长连接服务节点，成功建立了tcp连接
 - IM客户端发出auth请求，没有获得响应，超时断开tcp连接，循环往复
-- 故障时段imServer线程池满，无法处理auth请求，没有给出响应
+- 故障时段imServer线程池队列满，无法处理auth请求，没有给出响应
 
-疑问：imServer为啥线程池满？
+疑问：imServer为啥线程池队列满？
 
-- IM业务服务imServer相关日志，线程池长时间（820秒左右）卡住没返回
+- IM业务服务imServer相关日志，线程池所有线程长时间（820秒左右）卡住没返回，新的请求堆积在线程池队列里，直到堆满
 
 <img src="https://gongpengjun.com/imgs/network/imServer_call_longLinkServer_proc_time.png" width="100%" alt="imServer_call_longLinkServer_proc_time">
 
-惊! **820秒**左右，为啥imServer调用longLinkServer会卡住十几分钟不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP连接断开。Linux内核中tcp_retries2缺省值15，计算出的超时重传时间为15.4分钟，和故障场景下线程被卡住10多分钟基本吻合。
+惊! **820秒**左右，为啥imServer调用longLinkServer会卡住十几分钟不结束呢？查看imServer调用longLinkServer的代码发现，gRPC调用，业务层没有设置超时时间。gRPC底层是HTTP2，HTTP2底层是TCP长连接。推测：在被调用方longLinkServer突然宕机的情况下，调用方imServer需要很长时间才能感知到TCP连接断开。Linux内核中tcp_retries2缺省值15对应的超时重传时间大约15.4分钟，和故障场景下线程被卡住10多分钟基本吻合。
 
 推测毕竟只是推测，需要验证才能实锤。
 
